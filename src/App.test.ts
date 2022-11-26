@@ -1,7 +1,7 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from 'vitest';
 
-describe("Temporary config", () => {
-	it("should return true", () => {
-		expect(true).toEqual(true);
-	});
+describe('Temporary config', () => {
+  it('should return true', () => {
+    expect(true).toEqual(true);
+  });
 });

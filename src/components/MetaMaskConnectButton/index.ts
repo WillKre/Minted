@@ -1,0 +1,1 @@
+export { MetaMaskConnectButton } from './MetaMaskConnectButton';
