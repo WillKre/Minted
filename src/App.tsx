@@ -1,19 +1,24 @@
 import { FormEvent, useState } from 'react';
 
-import { Button } from './components/Button';
 import { Header } from './components/Header';
 import { TextInput } from './components/TextInput/TextInput';
 import { MetaMaskConnectButton } from './components/MetaMaskConnectButton';
-import { container } from './App.css';
+import { connectWallet } from './utils/connectWallet';
+import { container, mintButton, status } from './App.css';
 
 export function App() {
   const [link, setLink] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [walletAddress, setWalletAddress] = useState('');
+  const [metaMaskStatus, setMetaMaskStatus] = useState<string | JSX.Element>(
+    ''
+  );
 
-  function handleConnectWallet() {
-    console.log('Connect wallet...');
+  async function handleConnectWallet() {
+    const { address, status } = await connectWallet();
+    setWalletAddress(address);
+    setMetaMaskStatus(status);
   }
 
   function handleMint(event: FormEvent<HTMLFormElement>) {
@@ -22,7 +27,7 @@ export function App() {
   }
 
   return (
-    <div className={container}>
+    <section className={container}>
       <MetaMaskConnectButton
         address={walletAddress}
         onClick={handleConnectWallet}
@@ -49,8 +54,13 @@ export function App() {
           value={description}
           onChange={setDescription}
         />
-        <Button />
+
+        <button type="submit" className={mintButton}>
+          Mint NFT
+        </button>
+
+        <p className={status}>{metaMaskStatus}</p>
       </form>
-    </div>
+    </section>
   );
 }

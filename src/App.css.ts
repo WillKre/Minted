@@ -10,3 +10,18 @@ export const container = style({
   background:
     'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%)',
 });
+
+export const mintButton = style({
+  border: 'none',
+  width: '100%',
+  padding: '1rem',
+  cursor: 'pointer',
+  marginTop: '3rem',
+  background: 'limegreen',
+});
+
+export const status = style({
+  color: '#FFF',
+  marginTop: '1rem',
+  textAlign: 'center',
+});

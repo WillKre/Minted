@@ -1,3 +1,5 @@
+import { truncate } from 'truncate-ethereum-address';
+
 import { button } from './MetaMaskConnectButton.css';
 
 type MetaMaskConnectButtonProps = {
@@ -10,8 +12,12 @@ export function MetaMaskConnectButton({
   onClick,
 }: MetaMaskConnectButtonProps) {
   return (
-    <button id="walletButton" className={button} onClick={onClick}>
-      {address.length ? `Connected: ${address}` : <span>Connect Wallet</span>}
+    <button className={button} onClick={onClick}>
+      {address.length ? (
+        <span>Connected: {truncate(address, { separator: 'brackets' })}</span>
+      ) : (
+        <span>Connect Wallet</span>
+      )}
     </button>
   );
 }
