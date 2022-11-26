@@ -29,6 +29,7 @@ export function TextInput({
         id={label}
         className={input}
         type="text"
+        required
         placeholder={placeholder}
         value={value}
         onChange={handleOnChange}

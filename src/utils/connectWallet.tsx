@@ -1,8 +1,12 @@
-export async function connectWallet() {
+type Params = {
+  method: 'eth_requestAccounts' | 'eth_accounts';
+};
+
+export async function connectWallet({ method }: Params) {
   if (window.ethereum) {
     try {
       const addressArray = await window.ethereum.request({
-        method: 'eth_requestAccounts',
+        method,
       });
 
       return {

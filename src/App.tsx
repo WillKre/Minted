@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 
 import { Header } from './components/Header';
 import { TextInput } from './components/TextInput/TextInput';
@@ -15,8 +15,22 @@ export function App() {
     ''
   );
 
+  useEffect(() => {
+    async function connectOnLoad() {
+      const { address, status } = await connectWallet({
+        method: 'eth_accounts',
+      });
+      setWalletAddress(address);
+      setMetaMaskStatus(status);
+    }
+
+    connectOnLoad();
+  }, []);
+
   async function handleConnectWallet() {
-    const { address, status } = await connectWallet();
+    const { address, status } = await connectWallet({
+      method: 'eth_requestAccounts',
+    });
     setWalletAddress(address);
     setMetaMaskStatus(status);
   }
