@@ -12,10 +12,15 @@
 		"coverage": "vitest run --coverage"
 	},
 	"dependencies": {
+		"@alch/alchemy-web3": "^1.4.7",
 		"@vanilla-extract/css": "^1.9.2",
+		"alchemy-sdk": "^2.2.3",
+		"axios": "^1.2.0",
+		"ethers": "^5.7.2",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"truncate-ethereum-address": "^0.3.0"
+		"truncate-ethereum-address": "^0.3.0",
+		"wagmi": "^0.8.6"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.3.0",

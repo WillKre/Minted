@@ -1,51 +1,47 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
+
+import {
+  useContractWrite,
+  useWaitForTransaction,
+  usePrepareContractWrite,
+} from 'wagmi';
 
 import { Header } from './components/Header';
 import { TextInput } from './components/TextInput/TextInput';
 import { MetaMaskConnectButton } from './components/MetaMaskConnectButton';
-import { connectWallet } from './utils/connectWallet';
-import { container, mintButton, status } from './App.css';
+import { container, mintButton } from './App.css';
+
+import abi from '../contract-abi.json';
 
 export function App() {
+  const { config } = usePrepareContractWrite({
+    address: '',
+    abi,
+    functionName: 'mintNFT',
+    args: ['Hello', 'World'],
+  });
+
   const [link, setLink] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [walletAddress, setWalletAddress] = useState('');
-  const [metaMaskStatus, setMetaMaskStatus] = useState<string | JSX.Element>(
-    ''
-  );
 
-  useEffect(() => {
-    async function connectOnLoad() {
-      const { address, status } = await connectWallet({
-        method: 'eth_accounts',
-      });
-      setWalletAddress(address);
-      setMetaMaskStatus(status);
-    }
-
-    connectOnLoad();
-  }, []);
-
-  async function handleConnectWallet() {
-    const { address, status } = await connectWallet({
-      method: 'eth_requestAccounts',
-    });
-    setWalletAddress(address);
-    setMetaMaskStatus(status);
-  }
-
-  function handleMint(event: FormEvent<HTMLFormElement>) {
+  async function handleMint(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log('Handle mint...');
+
+    console.log('write is: ', write);
+
+    write?.();
   }
+
+  const { data, write } = useContractWrite(config);
+
+  const { isLoading, isSuccess } = useWaitForTransaction({
+    hash: data?.hash,
+  });
 
   return (
     <section className={container}>
-      <MetaMaskConnectButton
-        address={walletAddress}
-        onClick={handleConnectWallet}
-      />
+      <MetaMaskConnectButton />
 
       <Header />
 
@@ -69,12 +65,19 @@ export function App() {
           onChange={setDescription}
         />
 
-        <button type="submit" className={mintButton}>
-          Mint NFT
+        <button type="submit" className={mintButton} disabled={isLoading}>
+          {isLoading ? 'Minting...' : 'Mint'}
         </button>
-
-        <p className={status}>{metaMaskStatus}</p>
       </form>
+
+      {isSuccess && (
+        <div>
+          Successfully minted your NFT!
+          <div>
+            <a href={`https://etherscan.io/tx/${data?.hash}`}>Etherscan</a>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

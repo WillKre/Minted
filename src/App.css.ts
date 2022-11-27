@@ -19,9 +19,3 @@ export const mintButton = style({
   marginTop: '3rem',
   background: 'limegreen',
 });
-
-export const status = style({
-  color: '#FFF',
-  marginTop: '1rem',
-  textAlign: 'center',
-});
