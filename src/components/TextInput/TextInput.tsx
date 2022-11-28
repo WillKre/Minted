@@ -6,6 +6,7 @@ type TextInputProps = {
   label: string;
   value: string;
   placeholder: string;
+  autoFocus?: boolean;
   onChange: Dispatch<SetStateAction<string>>;
 };
 
@@ -13,6 +14,7 @@ export function TextInput({
   label,
   value,
   onChange,
+  autoFocus,
   placeholder,
 }: TextInputProps) {
   function handleOnChange(e: ChangeEvent<HTMLInputElement>) {
@@ -26,6 +28,7 @@ export function TextInput({
       </label>
 
       <input
+        autoFocus={autoFocus}
         id={label}
         className={input}
         type="text"

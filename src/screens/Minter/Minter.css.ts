@@ -7,6 +7,10 @@ export const container = style({
   flexDirection: 'column',
 });
 
+export const form = style({
+  width: '100%',
+});
+
 export const mintButton = style({
   width: '100%',
   color: '#FFF',

@@ -7,13 +7,12 @@ import {
   usePrepareContractWrite,
 } from 'wagmi';
 
-import { TextInput } from '../../components/TextInput/TextInput';
-import { container, mintButton } from './Minter.css';
-
+import { en } from '../../lang';
 import abi from '../../../contract-abi.json';
+import { TextInput } from '../../components/TextInput/TextInput';
+import { container, form, mintButton } from './Minter.css';
 
 export function Minter() {
-  const contractAddress = '0x0f2eC22DDe87D19f78f5EE8c70C154618077346c';
   const { address } = useAccount();
   const [tokenURI, setTokenURI] = useState('');
   const [name, setName] = useState('');
@@ -22,7 +21,7 @@ export function Minter() {
 
   const { config } = usePrepareContractWrite({
     abi,
-    address: contractAddress,
+    address: import.meta.env.VITE_CONTRACT_ADDRESS,
     functionName: 'mintNFT',
     args: [address, tokenURI],
   });
@@ -72,24 +71,25 @@ export function Minter() {
 
   return (
     <section className={container}>
-      <form style={{ width: '100%' }} onSubmit={handleMint}>
+      <form className={form} onSubmit={handleMint}>
         <TextInput
-          label="Link"
-          placeholder="e.g. https://gateway.pinata.cloud/ipfs/<hash>"
+          autoFocus
           value={tokenURI}
           onChange={setTokenURI}
+          label={en.minter.form.link.label}
+          placeholder={en.minter.form.link.placeholder}
         />
         <TextInput
-          label="Name"
-          placeholder="e.g. Bored Dog Yacht Club #1"
           value={name}
           onChange={setName}
+          label={en.minter.form.name.label}
+          placeholder={en.minter.form.name.placeholder}
         />
         <TextInput
-          label="Description"
-          placeholder="e.g. Next generation Bored Dogs..."
           value={description}
           onChange={setDescription}
+          label={en.minter.form.description.label}
+          placeholder={en.minter.form.description.placeholder}
         />
 
         <button type="submit" className={mintButton} disabled={isLoading}>
