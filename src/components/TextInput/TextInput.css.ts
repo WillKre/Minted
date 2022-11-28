@@ -4,6 +4,7 @@ export const container = style({
   color: '#111',
   display: 'flex',
   marginTop: '2rem',
+
   flexDirection: 'column',
 });
 
@@ -13,6 +14,7 @@ export const name = style({
 });
 
 export const input = style({
-  width: 300,
+  border: 'none',
   padding: '1rem',
+  borderRadius: '0.5rem',
 });
