@@ -1,4 +1,10 @@
 export const en = {
+  common: {
+    connect: 'Connect',
+    connectMetaMask: 'Please connect to MetaMask',
+    gitHubLogoAlt: 'GitHub logo',
+    metaMaskLogoAlt: 'Metamask logo',
+  },
   welcome: {
     title: 'Welcome!',
     subtitle: 'To get started, select one of the following options:',
@@ -19,6 +25,10 @@ export const en = {
         label: 'Description',
         placeholder: 'e.g. Next generation Bored Dogs...',
       },
+    },
+    success: {
+      title: 'Successfully minted your NFT!',
+      kicker: 'Check out the transaction here:',
     },
   },
 };

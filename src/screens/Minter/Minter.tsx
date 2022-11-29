@@ -6,8 +6,10 @@ import {
   useWaitForTransaction,
   usePrepareContractWrite,
 } from 'wagmi';
+import toast from 'react-hot-toast';
 
 import { en } from '../../lang';
+import { Success } from './Success';
 import abi from '../../../contract-abi.json';
 import { TextInput } from '../../components/TextInput/TextInput';
 import { container, form, mintButton } from './Minter.css';
@@ -25,15 +27,7 @@ export function Minter() {
     functionName: 'mintNFT',
     args: [address, tokenURI],
   });
-
   const { data, write } = useContractWrite(config);
-
-  async function handleMint(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    write?.();
-  }
-
   const { isLoading, isSuccess } = useWaitForTransaction({
     hash: data?.hash,
   });
@@ -51,22 +45,22 @@ export function Minter() {
     }
   }, [isSuccess]);
 
-  if (showSuccessScreen) {
-    return (
-      <section className={container}>
-        <h3>Successfully minted your NFT!</h3>
-        <p>Check it out here:</p>
-        <a href={`https://goerli.etherscan.io/tx/${data?.hash}`}>Etherscan</a>
+  async function handleMint(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
 
-        <button
-          type="button"
-          onClick={() => setShowSuccessScreen(false)}
-          className={mintButton}
-        >
-          Mint Another
-        </button>
-      </section>
-    );
+    if (!address) {
+      toast(en.common.connectMetaMask, {
+        icon: '🦊',
+        position: 'bottom-right',
+      });
+      return;
+    }
+
+    write?.();
+  }
+
+  if (showSuccessScreen) {
+    return <Success setShowSuccessScreen={setShowSuccessScreen} />;
   }
 
   return (

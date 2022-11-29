@@ -17,6 +17,7 @@ export const screen = style({
 export const buttons = style({
   width: '100%',
   height: '2rem',
+  paddingTop: '1rem',
 });
 
 export const button = style({

@@ -8,11 +8,13 @@ import {
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 import { InjectedConnector } from 'wagmi/connectors/injected';
+import { Toaster } from 'react-hot-toast';
 
 import { Step } from './types';
 import { getScreen } from './utils/getScreen';
 import { Header } from './components/Header';
 import { Stepper } from './components/Stepper';
+import { GitHubButton } from './components/GitHubButton';
 import { MetaMaskConnectButton } from './components/MetaMaskConnectButton';
 
 export function App() {
@@ -22,15 +24,16 @@ export function App() {
   ]);
 
   const wagmiClient = createClient({
+    provider,
     autoConnect: true,
     connectors: [new InjectedConnector({ chains })],
-    provider,
   });
 
   const [step, setStep] = useState<Step>('start');
 
   return (
     <WagmiConfig client={wagmiClient}>
+      <GitHubButton />
       <MetaMaskConnectButton />
 
       <Header />
@@ -38,6 +41,8 @@ export function App() {
       <Stepper step={step} setStep={setStep}>
         {getScreen(step, setStep)}
       </Stepper>
+
+      <Toaster />
     </WagmiConfig>
   );
 }

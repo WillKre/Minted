@@ -7,12 +7,14 @@ declare global {
     ethereum?: MetaMaskInpageProvider;
     contract?: Contract;
   }
+}
 
-  namespace NodeJS {
-    interface ProcessEnv {
-      PINATA_API_KEY: string;
-      PINATA_API_SECRET: string;
-      ALCHEMY_KEY: string;
-    }
-  }
+interface ImportMetaEnv {
+  readonly VITE_CONTRACT_ADDRESS: string;
+  readonly VITE_ALCHEMY_KEY: string;
+  readonly VITE_PINATA_JWT: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
 }

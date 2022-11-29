@@ -2,7 +2,9 @@ import { truncate } from 'truncate-ethereum-address';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
 
-import { button, text } from './MetaMaskConnectButton.css';
+import fox from './fox.svg';
+import { en } from '../../lang';
+import { button, image, text } from './MetaMaskConnectButton.css';
 
 export function MetaMaskConnectButton() {
   const { address } = useAccount();
@@ -14,7 +16,7 @@ export function MetaMaskConnectButton() {
   function getText() {
     return address
       ? `${truncate(address, { separator: 'brackets' })}`
-      : 'Connect';
+      : en.common.connect;
   }
 
   return (
@@ -22,7 +24,7 @@ export function MetaMaskConnectButton() {
       className={button}
       onClick={address ? () => disconnect() : () => connect()}
     >
-      🦊
+      <img src={fox} className={image} alt={en.common.metaMaskLogoAlt} />
       <span className={text}>{getText()}</span>
     </button>
   );

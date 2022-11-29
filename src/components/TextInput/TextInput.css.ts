@@ -4,7 +4,6 @@ export const container = style({
   color: '#111',
   display: 'flex',
   marginTop: '2rem',
-
   flexDirection: 'column',
 });
 

@@ -28,13 +28,13 @@ export function TextInput({
       </label>
 
       <input
-        autoFocus={autoFocus}
-        id={label}
-        className={input}
-        type="text"
         required
-        placeholder={placeholder}
+        id={label}
+        type="text"
         value={value}
+        className={input}
+        autoFocus={autoFocus}
+        placeholder={placeholder}
         onChange={handleOnChange}
       />
     </div>

@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
-  color: '#FFF',
-  marginTop: '4rem',
+  marginTop: '1rem',
   textAlign: 'center',
+  paddingBottom: '2rem',
 });
