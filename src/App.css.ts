@@ -1,19 +1,18 @@
 import { style } from '@vanilla-extract/css';
 
-export const container = style({
+export const section = style({
   width: '100%',
   height: '100%',
   display: 'flex',
   alignItems: 'center',
   flexDirection: 'column',
-  justifyContent: 'space-between',
 });
 
 export const form = style({
   width: '100%',
 });
 
-export const mintButton = style({
+export const submitButton = style({
   width: '100%',
   color: '#FFF',
   border: 'none',

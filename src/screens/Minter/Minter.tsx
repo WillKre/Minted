@@ -10,22 +10,23 @@ import toast from 'react-hot-toast';
 
 import { en } from '../../lang';
 import { Success } from './Success';
-import abi from '../../../contract-abi.json';
+import { pinJSONToIPFS } from '../../utils/pinJsonToIpfs';
+import { section, form, submitButton } from '../../App.css';
 import { TextInput } from '../../components/TextInput/TextInput';
-import { container, form, mintButton } from './Minter.css';
+import MintzArtifact from '../../../artifacts/contracts/Mintz.sol/Mintz.json';
 
 export function Minter() {
   const { address } = useAccount();
-  const [tokenURI, setTokenURI] = useState('');
+  const [imageUri, setImageUri] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [showSuccessScreen, setShowSuccessScreen] = useState(false);
 
   const { config } = usePrepareContractWrite({
-    abi,
-    address: import.meta.env.VITE_CONTRACT_ADDRESS,
+    abi: MintzArtifact.abi,
     functionName: 'mintNFT',
-    args: [address, tokenURI],
+    address: import.meta.env.VITE_CONTRACT_ADDRESS,
+    args: [address, ''],
   });
   const { data, write } = useContractWrite(config);
   const { isLoading, isSuccess } = useWaitForTransaction({
@@ -33,7 +34,7 @@ export function Minter() {
   });
 
   function resetForm() {
-    setTokenURI('');
+    setImageUri('');
     setName('');
     setDescription('');
   }
@@ -56,20 +57,36 @@ export function Minter() {
       return;
     }
 
-    write?.();
+    const { pinataUrl, errorMessage } = await pinJSONToIPFS({
+      name,
+      description,
+      image: imageUri,
+      attributes: [],
+    });
+
+    if (errorMessage) {
+      toast(errorMessage, {
+        icon: '🦊',
+        position: 'bottom-right',
+      });
+    }
+
+    write?.({
+      recklesslySetUnpreparedArgs: [address, pinataUrl],
+    });
   }
 
   if (showSuccessScreen) {
-    return <Success setShowSuccessScreen={setShowSuccessScreen} />;
+    return <Success data={data} setShowSuccessScreen={setShowSuccessScreen} />;
   }
 
   return (
-    <section className={container}>
+    <section className={section}>
       <form className={form} onSubmit={handleMint}>
         <TextInput
           autoFocus
-          value={tokenURI}
-          onChange={setTokenURI}
+          value={imageUri}
+          onChange={setImageUri}
           label={en.minter.form.link.label}
           placeholder={en.minter.form.link.placeholder}
         />
@@ -86,7 +103,7 @@ export function Minter() {
           placeholder={en.minter.form.description.placeholder}
         />
 
-        <button type="submit" className={mintButton} disabled={isLoading}>
+        <button type="submit" className={submitButton} disabled={isLoading}>
           {isLoading ? 'Minting...' : 'Mint'}
         </button>
       </form>

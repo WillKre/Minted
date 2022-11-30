@@ -11,6 +11,19 @@ export const en = {
     deployButtonTitle: 'Deploy your NFT Collection',
     mintButtonTitle: 'Mint your NFT',
   },
+  deployer: {
+    form: {
+      name: {
+        label: 'Name',
+        placeholder: 'e.g. Mintz',
+      },
+      symbol: {
+        label: 'Symbol',
+        placeholder: 'e.g. MINT',
+      },
+      submitButtonTitle: 'Deploy',
+    },
+  },
   minter: {
     form: {
       link: {
@@ -29,6 +42,9 @@ export const en = {
     success: {
       title: 'Successfully minted your NFT!',
       kicker: 'Check out the transaction here:',
+    },
+    errors: {
+      ipfs: 'Error pinning your JSON to IPFS',
     },
   },
 };

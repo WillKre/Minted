@@ -2,19 +2,22 @@ import { Dispatch, SetStateAction } from 'react';
 
 import { en } from '../../../lang';
 import { link } from './Success.css';
-import { container, mintButton } from '../Minter.css';
+import { section, submitButton } from '../../../App.css';
 
 type SuccessProps = {
+  data?: {
+    hash: string;
+  };
   setShowSuccessScreen: Dispatch<SetStateAction<boolean>>;
 };
 
-export function Success({ setShowSuccessScreen }: SuccessProps) {
+export function Success({ data, setShowSuccessScreen }: SuccessProps) {
   function handleResetScreen() {
     setShowSuccessScreen(false);
   }
 
   return (
-    <section className={container}>
+    <section className={section}>
       <div>
         <h3>{en.minter.success.title}</h3>
         <p>
@@ -28,7 +31,11 @@ export function Success({ setShowSuccessScreen }: SuccessProps) {
         </p>
       </div>
 
-      <button type="button" className={mintButton} onClick={handleResetScreen}>
+      <button
+        type="button"
+        className={submitButton}
+        onClick={handleResetScreen}
+      >
         Mint Another
       </button>
     </section>

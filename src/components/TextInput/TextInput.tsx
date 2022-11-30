@@ -6,6 +6,7 @@ type TextInputProps = {
   label: string;
   value: string;
   placeholder: string;
+  disabled?: boolean;
   autoFocus?: boolean;
   onChange: Dispatch<SetStateAction<string>>;
 };
@@ -14,6 +15,7 @@ export function TextInput({
   label,
   value,
   onChange,
+  disabled,
   autoFocus,
   placeholder,
 }: TextInputProps) {
@@ -33,6 +35,7 @@ export function TextInput({
         type="text"
         value={value}
         className={input}
+        disabled={disabled}
         autoFocus={autoFocus}
         placeholder={placeholder}
         onChange={handleOnChange}

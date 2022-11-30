@@ -15,7 +15,7 @@ export function MetaMaskConnectButton() {
 
   function getText() {
     return address
-      ? `${truncate(address, { separator: 'brackets' })}`
+      ? `${truncate(address, { nPrefix: 2, separator: 'brackets' })}`
       : en.common.connect;
   }
 
