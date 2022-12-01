@@ -1,1 +1,1 @@
-export type Step = 'start' | 'deploy' | 'mint';
+export type Step = 'welcome' | 'deploy' | 'mint';

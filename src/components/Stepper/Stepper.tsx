@@ -11,7 +11,7 @@ type StepperProps = {
 
 export function Stepper({ children, step, setStep }: StepperProps) {
   function handleBackStep() {
-    setStep('start');
+    setStep('welcome');
   }
 
   return (
@@ -19,7 +19,7 @@ export function Stepper({ children, step, setStep }: StepperProps) {
       <div className={screen}>{children}</div>
 
       <div className={buttons}>
-        {step !== 'start' && (
+        {step !== 'welcome' && (
           <button type="button" className={button} onClick={handleBackStep}>
             Back
           </button>

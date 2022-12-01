@@ -29,7 +29,7 @@ export function App() {
     connectors: [new InjectedConnector({ chains })],
   });
 
-  const [step, setStep] = useState<Step>('start');
+  const [step, setStep] = useState<Step>('welcome');
 
   return (
     <WagmiConfig client={wagmiClient}>

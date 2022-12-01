@@ -9,27 +9,28 @@ import {
 import toast from 'react-hot-toast';
 
 import { en } from '../../lang';
-import { Success } from './Success';
+import { Image } from './Steps/Image';
+import { Fields } from './Steps/Fields';
+import { Success } from './Steps/Success';
 import { pinJSONToIPFS } from '../../utils/pinJsonToIpfs';
-import { section, form, submitButton } from '../../App.css';
-import { TextInput } from '../../components/TextInput/TextInput';
+import { pinFileToIPFS } from '../../utils/pinFileToIpfs';
 import MintzArtifact from '../../../artifacts/contracts/Mintz.sol/Mintz.json';
 
 export function Minter() {
+  const [step, setStep] = useState('image');
   const { address } = useAccount();
   const [imageUri, setImageUri] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [showSuccessScreen, setShowSuccessScreen] = useState(false);
 
   const { config } = usePrepareContractWrite({
+    args: [address, ''],
     abi: MintzArtifact.abi,
     functionName: 'mintNFT',
     address: import.meta.env.VITE_CONTRACT_ADDRESS,
-    args: [address, ''],
   });
   const { data, write } = useContractWrite(config);
-  const { isLoading, isSuccess } = useWaitForTransaction({
+  const { isLoading: isMinting, isSuccess } = useWaitForTransaction({
     hash: data?.hash,
   });
 
@@ -41,10 +42,37 @@ export function Minter() {
 
   useEffect(() => {
     if (isSuccess) {
-      resetForm();
-      setShowSuccessScreen(true);
+      setStep('success');
     }
   }, [isSuccess]);
+
+  async function handleSelectImageSuccess(image: File) {
+    try {
+      toast(en.minter.toast.uploadingImage, {
+        icon: '🏞',
+        position: 'bottom-right',
+      });
+
+      const { pinataUrl } = await pinFileToIPFS(image);
+      setImageUri(pinataUrl);
+
+      toast(en.minter.toast.uploadedImage, {
+        icon: '✅',
+        position: 'bottom-right',
+      });
+    } catch {
+      toast(en.minter.toast.uploadImageError, {
+        icon: '❌',
+        position: 'bottom-right',
+      });
+    }
+  }
+
+  async function handleGoToFields(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setStep('fields');
+  }
 
   async function handleMint(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -76,37 +104,40 @@ export function Minter() {
     });
   }
 
-  if (showSuccessScreen) {
-    return <Success data={data} setShowSuccessScreen={setShowSuccessScreen} />;
+  if (step === 'image') {
+    return (
+      <Image
+        imageUri={imageUri}
+        setImageUri={setImageUri}
+        onSubmit={handleGoToFields}
+        handleSelectImageSuccess={handleSelectImageSuccess}
+      />
+    );
   }
 
-  return (
-    <section className={section}>
-      <form className={form} onSubmit={handleMint}>
-        <TextInput
-          autoFocus
-          value={imageUri}
-          onChange={setImageUri}
-          label={en.minter.form.link.label}
-          placeholder={en.minter.form.link.placeholder}
-        />
-        <TextInput
-          value={name}
-          onChange={setName}
-          label={en.minter.form.name.label}
-          placeholder={en.minter.form.name.placeholder}
-        />
-        <TextInput
-          value={description}
-          onChange={setDescription}
-          label={en.minter.form.description.label}
-          placeholder={en.minter.form.description.placeholder}
-        />
+  if (step === 'fields') {
+    return (
+      <Fields
+        name={name}
+        setName={setName}
+        description={description}
+        isMinting={isMinting}
+        setDescription={setDescription}
+        onSubmit={handleMint}
+      />
+    );
+  }
 
-        <button type="submit" className={submitButton} disabled={isLoading}>
-          {isLoading ? 'Minting...' : 'Mint'}
-        </button>
-      </form>
-    </section>
-  );
+  if (step === 'success') {
+    return (
+      <Success
+        data={data}
+        setStep={setStep}
+        imageUri={imageUri}
+        resetForm={resetForm}
+      />
+    );
+  }
+
+  return null;
 }

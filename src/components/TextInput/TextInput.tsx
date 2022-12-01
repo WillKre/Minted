@@ -1,6 +1,7 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 
-import { container, name, input } from './TextInput.css';
+import { labelActionButton } from '../../App.css';
+import { container, name, input, labelAndAction } from './TextInput.css';
 
 type TextInputProps = {
   label: string;
@@ -9,6 +10,10 @@ type TextInputProps = {
   disabled?: boolean;
   autoFocus?: boolean;
   onChange: Dispatch<SetStateAction<string>>;
+  action?: {
+    label: string;
+    onClick: () => void;
+  };
 };
 
 export function TextInput({
@@ -18,6 +23,7 @@ export function TextInput({
   disabled,
   autoFocus,
   placeholder,
+  action,
 }: TextInputProps) {
   function handleOnChange(e: ChangeEvent<HTMLInputElement>) {
     onChange(e.target.value);
@@ -25,9 +31,20 @@ export function TextInput({
 
   return (
     <div className={container}>
-      <label htmlFor={label} className={name}>
-        {label}
-      </label>
+      <div className={labelAndAction}>
+        <label htmlFor={label} className={name}>
+          {label}
+        </label>
+        {action && (
+          <button
+            type="button"
+            onClick={action.onClick}
+            className={labelActionButton}
+          >
+            {action.label}
+          </button>
+        )}
+      </div>
 
       <input
         required

@@ -1,19 +1,22 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { en } from '../../../lang';
 import { link } from './Success.css';
-import { section, submitButton } from '../../../App.css';
+import { en } from '../../../../lang';
+import { img, section, submitButton } from '../../../../App.css';
 
 type SuccessProps = {
   data?: {
     hash: string;
   };
-  setShowSuccessScreen: Dispatch<SetStateAction<boolean>>;
+  imageUri: string;
+  resetForm: () => void;
+  setStep: Dispatch<SetStateAction<string>>;
 };
 
-export function Success({ data, setShowSuccessScreen }: SuccessProps) {
+export function Success({ data, imageUri, setStep, resetForm }: SuccessProps) {
   function handleResetScreen() {
-    setShowSuccessScreen(false);
+    setStep('image');
+    resetForm();
   }
 
   return (
@@ -30,6 +33,8 @@ export function Success({ data, setShowSuccessScreen }: SuccessProps) {
           </a>
         </p>
       </div>
+
+      <img src={imageUri} className={img} />
 
       <button
         type="button"

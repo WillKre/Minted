@@ -4,9 +4,9 @@ import toast from 'react-hot-toast';
 import { useSigner, useAccount } from 'wagmi';
 
 import { en } from '../../lang';
-import MintzArtifact from '../../../artifacts/contracts/Mintz.sol/Mintz.json';
-import { TextInput } from '../../components/TextInput/TextInput';
 import { section, form, submitButton } from '../../App.css';
+import { TextInput } from '../../components/TextInput/TextInput';
+import MintzArtifact from '../../../artifacts/contracts/Mintz.sol/Mintz.json';
 
 export function Deployer() {
   const { address } = useAccount();
@@ -42,21 +42,23 @@ export function Deployer() {
   return (
     <section className={section}>
       <form className={form} onSubmit={handleDeploy}>
-        <TextInput
-          disabled
-          value={name}
-          onChange={setName}
-          label={en.deployer.form.name.label}
-          placeholder={en.deployer.form.name.placeholder}
-        />
+        <div>
+          <TextInput
+            disabled
+            value={name}
+            onChange={setName}
+            label={en.deployer.form.name.label}
+            placeholder={en.deployer.form.name.placeholder}
+          />
 
-        <TextInput
-          disabled
-          value={symbol}
-          onChange={setSymbol}
-          label={en.deployer.form.symbol.label}
-          placeholder={en.deployer.form.symbol.placeholder}
-        />
+          <TextInput
+            disabled
+            value={symbol}
+            onChange={setSymbol}
+            label={en.deployer.form.symbol.label}
+            placeholder={en.deployer.form.symbol.placeholder}
+          />
+        </div>
 
         <button type="submit" className={submitButton} disabled={isLoading}>
           {en.deployer.form.submitButtonTitle}

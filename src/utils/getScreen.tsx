@@ -7,7 +7,7 @@ import { Welcome } from '../screens/Welcome';
 
 export function getScreen(step: Step, setStep: Dispatch<SetStateAction<Step>>) {
   switch (step) {
-    case 'start':
+    case 'welcome':
       return <Welcome setStep={setStep} />;
     case 'deploy':
       return <Deployer />;

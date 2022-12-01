@@ -1,5 +1,7 @@
 export const en = {
   common: {
+    image: 'Image',
+    dragNDrop: "Drag 'n' drop an image or click here to upload to IPFS",
     connect: 'Connect',
     connectMetaMask: 'Please connect to MetaMask',
     gitHubLogoAlt: 'GitHub logo',
@@ -39,11 +41,19 @@ export const en = {
         placeholder: 'e.g. Next generation Bored Dogs...',
       },
     },
+    next: 'Next',
+    minting: 'Minting...',
+    mint: 'Mint',
     success: {
       title: 'Successfully minted your NFT!',
       kicker: 'Check out the transaction here:',
     },
-    errors: {
+    toast: {
+      uploadingImage: 'Uploading your image to IPFS...',
+      uploadedImage: 'Successfully uploaded your image',
+      uploadImageError:
+        'Unable to upload your image, please use the URI input if the problem persists',
+      fileSelection: 'An error occurred while selecting this file',
       ipfs: 'Error pinning your JSON to IPFS',
     },
   },
