@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react';
-import toast from 'react-hot-toast';
 import { useDropzone } from 'react-dropzone';
 
 import {
@@ -13,7 +12,8 @@ import {
   labelAndAction,
 } from './ImageSelect.css';
 import { en } from '../../lang';
-import { Preview } from './Preview';
+import { Preview } from '../Preview';
+import { showToast } from '../../utils/showToast';
 import { labelActionButton } from '../../App.css';
 
 type ImageSelectProps = {
@@ -51,17 +51,14 @@ export function ImageSelect({ action, onChange }: ImageSelectProps) {
 
   useEffect(() => {
     if (fileRejections.length) {
-      toast(fileRejections[0].errors[0].message, {
-        icon: '🏞',
-        position: 'bottom-right',
-      });
+      showToast(fileRejections[0].errors[0].message, '🏞');
     }
 
     if (acceptedFiles.length === 1) {
       setPreview(URL.createObjectURL(acceptedFiles[0]));
       onChange(acceptedFiles[0]);
     }
-  }, [acceptedFiles]);
+  }, [acceptedFiles, fileRejections]);
 
   return (
     <div className={container}>
@@ -72,8 +69,8 @@ export function ImageSelect({ action, onChange }: ImageSelectProps) {
         {action && (
           <button
             type="button"
-            className={labelActionButton}
             onClick={action.onClick}
+            className={labelActionButton}
           >
             {action.label}
           </button>

@@ -1,21 +1,18 @@
-import { Dispatch, SetStateAction } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { en } from '../../lang';
 import { Button } from './Button';
-import { Step } from '../../types';
 import { buttons } from './Welcome.css';
 
-type WelcomeProps = {
-  setStep: Dispatch<SetStateAction<Step>>;
-};
+export function Welcome() {
+  const navigate = useNavigate();
 
-export function Welcome({ setStep }: WelcomeProps) {
   function handleGoToDeploy() {
-    setStep('deploy');
+    navigate('/deploy');
   }
 
   function handleGoToMint() {
-    setStep('mint');
+    navigate('/mint');
   }
 
   return (

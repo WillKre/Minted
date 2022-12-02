@@ -6,12 +6,12 @@ import {
   useWaitForTransaction,
   usePrepareContractWrite,
 } from 'wagmi';
-import toast from 'react-hot-toast';
 
 import { en } from '../../lang';
 import { Image } from './Steps/Image';
 import { Fields } from './Steps/Fields';
 import { Success } from './Steps/Success';
+import { showToast } from '../../utils/showToast';
 import { pinJSONToIPFS } from '../../utils/pinJsonToIpfs';
 import { pinFileToIPFS } from '../../utils/pinFileToIpfs';
 import MintzArtifact from '../../../artifacts/contracts/Mintz.sol/Mintz.json';
@@ -40,37 +40,13 @@ export function Minter() {
     setDescription('');
   }
 
-  useEffect(() => {
-    if (isSuccess) {
-      setStep('success');
-    }
-  }, [isSuccess]);
-
   async function handleSelectImageSuccess(image: File) {
-    try {
-      toast(en.minter.toast.uploadingImage, {
-        icon: '🏞',
-        position: 'bottom-right',
-      });
-
-      const { pinataUrl } = await pinFileToIPFS(image);
-      setImageUri(pinataUrl);
-
-      toast(en.minter.toast.uploadedImage, {
-        icon: '✅',
-        position: 'bottom-right',
-      });
-    } catch {
-      toast(en.minter.toast.uploadImageError, {
-        icon: '❌',
-        position: 'bottom-right',
-      });
-    }
+    const { pinataUrl } = await pinFileToIPFS(image);
+    if (pinataUrl) setImageUri(pinataUrl);
   }
 
-  async function handleGoToFields(event: FormEvent<HTMLFormElement>) {
+  function handleGoToFields(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
     setStep('fields');
   }
 
@@ -78,31 +54,27 @@ export function Minter() {
     event.preventDefault();
 
     if (!address) {
-      toast(en.common.connectMetaMask, {
-        icon: '🦊',
-        position: 'bottom-right',
-      });
+      showToast(en.common.connectMetaMask, '🦊');
       return;
     }
 
-    const { pinataUrl, errorMessage } = await pinJSONToIPFS({
+    const { pinataUrl } = await pinJSONToIPFS({
       name,
       description,
       image: imageUri,
       attributes: [],
     });
 
-    if (errorMessage) {
-      toast(errorMessage, {
-        icon: '🦊',
-        position: 'bottom-right',
+    if (pinataUrl) {
+      write?.({
+        recklesslySetUnpreparedArgs: [address, pinataUrl],
       });
     }
-
-    write?.({
-      recklesslySetUnpreparedArgs: [address, pinataUrl],
-    });
   }
+
+  useEffect(() => {
+    if (isSuccess) setStep('success');
+  }, [isSuccess]);
 
   if (step === 'image') {
     return (

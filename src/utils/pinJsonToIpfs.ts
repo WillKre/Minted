@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { showToast } from './showToast';
 
 const VITE_PINATA_JWT = import.meta.env.VITE_PINATA_JWT;
 
@@ -35,13 +36,13 @@ export async function pinJSONToIPFS(jsonBody: ERC721MetaDataStandard) {
     };
   } catch (error) {
     if (error instanceof Error) {
-      return {
-        errorMessage: error.message,
-      };
+      showToast(error.message, '🚨');
+    } else {
+      showToast('An error occurred while pinning JSON to IPFS', '🚨');
     }
 
     return {
-      errorMessage: 'An error occurred while pinning JSON to IPFS',
+      pinataUrl: null,
     };
   }
 }

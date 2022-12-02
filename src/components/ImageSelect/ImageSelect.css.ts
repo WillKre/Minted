@@ -28,7 +28,7 @@ export const baseStyle = {
   borderRadius: '0.5rem',
   borderColor: '#eeeeee',
   backgroundColor: '#fafafa',
-  transition: 'border .24s ease-in-out',
+  transition: 'border 0.24s ease-in-out',
 };
 
 export const focusedStyle = {

@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 
 import { link } from './Success.css';
 import { en } from '../../../../lang';
-import { img, section, submitButton } from '../../../../App.css';
+import { img, section, button } from '../../../../App.css';
 
 type SuccessProps = {
   data?: {
@@ -36,11 +36,7 @@ export function Success({ data, imageUri, setStep, resetForm }: SuccessProps) {
 
       <img src={imageUri} className={img} />
 
-      <button
-        type="button"
-        className={submitButton}
-        onClick={handleResetScreen}
-      >
+      <button type="button" className={button} onClick={handleResetScreen}>
         Mint Another
       </button>
     </section>

@@ -5,3 +5,8 @@ export const container = style({
   marginTop: '2rem',
   flexDirection: 'column',
 });
+
+export const label = style({
+  color: '#FFF',
+  marginBottom: '0.5rem',
+});

@@ -1,7 +1,7 @@
 import { Dispatch, FormEvent, SetStateAction } from 'react';
 
 import { en } from '../../../../lang';
-import { form, section, submitButton } from '../../../../App.css';
+import { form, section, button } from '../../../../App.css';
 import { TextInput } from '../../../../components/TextInput/TextInput';
 
 type FieldsProps = {
@@ -39,7 +39,7 @@ export function Fields({
           />
         </div>
 
-        <button type="submit" className={submitButton} disabled={isMinting}>
+        <button type="submit" className={button} disabled={isMinting}>
           {isMinting ? en.minter.minting : en.minter.mint}
         </button>
       </form>

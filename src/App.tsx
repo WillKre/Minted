@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Toaster } from 'react-hot-toast';
+import { Outlet } from 'react-router-dom';
 import {
   WagmiConfig,
   configureChains,
@@ -8,16 +10,13 @@ import {
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 import { InjectedConnector } from 'wagmi/connectors/injected';
-import { Toaster } from 'react-hot-toast';
 
-import { Step } from './types';
-import { getScreen } from './utils/getScreen';
+import { View } from './components/View';
 import { Header } from './components/Header';
-import { Stepper } from './components/Stepper';
 import { GitHubButton } from './components/GitHubButton';
 import { MetaMaskConnectButton } from './components/MetaMaskConnectButton';
 
-export function App() {
+export default function App() {
   const { chains, provider } = configureChains(defaultChains, [
     alchemyProvider({ apiKey: import.meta.env.VITE_ALCHEMY_KEY }),
     publicProvider(),
@@ -29,8 +28,6 @@ export function App() {
     connectors: [new InjectedConnector({ chains })],
   });
 
-  const [step, setStep] = useState<Step>('welcome');
-
   return (
     <WagmiConfig client={wagmiClient}>
       <GitHubButton />
@@ -38,9 +35,9 @@ export function App() {
 
       <Header />
 
-      <Stepper step={step} setStep={setStep}>
-        {getScreen(step, setStep)}
-      </Stepper>
+      <View>
+        <Outlet />
+      </View>
 
       <Toaster />
     </WagmiConfig>

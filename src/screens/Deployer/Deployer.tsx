@@ -1,12 +1,17 @@
 import { FormEvent, useState } from 'react';
 import { ethers } from 'ethers';
-import toast from 'react-hot-toast';
 import { useSigner, useAccount } from 'wagmi';
 
 import { en } from '../../lang';
-import { section, form, submitButton } from '../../App.css';
+import { showToast } from '../../utils/showToast';
+import { section, form, button } from '../../App.css';
 import { TextInput } from '../../components/TextInput/TextInput';
 import MintzArtifact from '../../../artifacts/contracts/Mintz.sol/Mintz.json';
+
+type MetaMaskError = {
+  code: number;
+  reason: string;
+};
 
 export function Deployer() {
   const { address } = useAccount();
@@ -18,25 +23,25 @@ export function Deployer() {
   async function handleDeploy(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!address) {
-      toast(en.common.connectMetaMask, {
-        icon: '🦊',
-        position: 'bottom-right',
-      });
+    if (!address || !signer) {
+      showToast(en.common.connectMetaMask, '🦊');
       return;
     }
 
-    if (!signer) {
-      return null;
+    try {
+      const factory = new ethers.ContractFactory(
+        MintzArtifact.abi,
+        MintzArtifact.bytecode,
+        signer
+      );
+      const contract = await factory.deploy();
+      await contract.deployTransaction.wait();
+    } catch (error) {
+      showToast(
+        (error as MetaMaskError)?.reason || en.deployer.toast.errorDeploying,
+        '🚨'
+      );
     }
-
-    const factory = new ethers.ContractFactory(
-      MintzArtifact.abi,
-      MintzArtifact.bytecode,
-      signer
-    );
-    const contract = await factory.deploy();
-    await contract.deployTransaction.wait();
   }
 
   return (
@@ -60,7 +65,7 @@ export function Deployer() {
           />
         </div>
 
-        <button type="submit" className={submitButton} disabled={isLoading}>
+        <button type="submit" className={button} disabled={isLoading}>
           {en.deployer.form.submitButtonTitle}
         </button>
       </form>

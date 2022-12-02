@@ -19,11 +19,12 @@ export function MetaMaskConnectButton() {
       : en.common.connect;
   }
 
+  function handleOnClick() {
+    address ? disconnect() : connect();
+  }
+
   return (
-    <button
-      className={button}
-      onClick={address ? () => disconnect() : () => connect()}
-    >
+    <button className={button} onClick={handleOnClick}>
       <img src={fox} className={image} alt={en.common.metaMaskLogoAlt} />
       <span className={text}>{getText()}</span>
     </button>

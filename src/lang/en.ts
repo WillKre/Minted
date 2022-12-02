@@ -1,11 +1,16 @@
 export const en = {
   common: {
     image: 'Image',
+    preview: 'Preview',
     dragNDrop: "Drag 'n' drop an image or click here to upload to IPFS",
     connect: 'Connect',
     connectMetaMask: 'Please connect to MetaMask',
     gitHubLogoAlt: 'GitHub logo',
     metaMaskLogoAlt: 'Metamask logo',
+  },
+  errorPage: {
+    title: 'Oops!',
+    subtitle: 'Sorry, an unexpected error has occurred.',
   },
   welcome: {
     title: 'Welcome!',
@@ -24,6 +29,9 @@ export const en = {
         placeholder: 'e.g. MINT',
       },
       submitButtonTitle: 'Deploy',
+    },
+    toast: {
+      errorDeploying: 'Error deploying contract',
     },
   },
   minter: {

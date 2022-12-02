@@ -25,8 +25,8 @@ export function TextInput({
   placeholder,
   action,
 }: TextInputProps) {
-  function handleOnChange(e: ChangeEvent<HTMLInputElement>) {
-    onChange(e.target.value);
+  function handleOnChange(event: ChangeEvent<HTMLInputElement>) {
+    onChange(event.target.value);
   }
 
   return (

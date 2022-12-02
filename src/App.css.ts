@@ -17,13 +17,12 @@ export const form = style({
   justifyContent: 'space-between',
 });
 
-export const submitButton = style({
+export const button = style({
   width: '100%',
   color: '#FFF',
   border: 'none',
   padding: '1rem',
   cursor: 'pointer',
-  marginTop: '3rem',
   borderRadius: '0.5rem',
   backgroundImage: 'linear-gradient(rgb(32, 39, 56) 0px, rgb(7, 8, 22) 100%)',
   ':hover': {
