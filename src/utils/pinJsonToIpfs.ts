@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { showToast } from './showToast';
 
-const VITE_PINATA_JWT = import.meta.env.VITE_PINATA_JWT;
+const VITE_PINATA_API_KEY = import.meta.env.VITE_PINATA_API_KEY;
+const VITE_PINATA_API_SECRET = import.meta.env.VITE_PINATA_API_SECRET;
 
 type ERC721MetaDataStandard = {
   name: string;
@@ -21,7 +22,8 @@ export async function pinJSONToIPFS(jsonBody: ERC721MetaDataStandard) {
       url: 'https://api.pinata.cloud/pinning/pinJSONToIPFS',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${VITE_PINATA_JWT}`,
+        pinata_api_key: VITE_PINATA_API_KEY,
+        pinata_secret_api_key: VITE_PINATA_API_SECRET,
       },
       data: {
         pinataOptions: {
@@ -35,11 +37,12 @@ export async function pinJSONToIPFS(jsonBody: ERC721MetaDataStandard) {
       pinataUrl: `https://gateway.pinata.cloud/ipfs/${data.IpfsHash}`,
     };
   } catch (error) {
-    if (error instanceof Error) {
-      showToast(error.message, '🚨');
-    } else {
-      showToast('An error occurred while pinning JSON to IPFS', '🚨');
-    }
+    showToast(
+      error instanceof Error
+        ? error.message
+        : 'An error occurred while pinning JSON to IPFS',
+      '🚨'
+    );
 
     return {
       pinataUrl: null,

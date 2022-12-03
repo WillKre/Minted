@@ -1,44 +1,44 @@
 {
-	"name": "mintz",
-	"private": true,
-	"version": "0.0.0",
-	"type": "module",
-	"scripts": {
-		"dev": "vite",
-		"build": "tsc && vite build",
-		"preview": "vite preview",
-		"prepare": "husky install",
-		"test": "vitest run",
-		"coverage": "vitest run --coverage"
-	},
-	"dependencies": {
-		"@alch/alchemy-web3": "^1.4.7",
-		"@vanilla-extract/css": "^1.9.2",
-		"alchemy-sdk": "^2.2.3",
-		"axios": "^1.2.0",
-		"ethers": "^5.7.2",
-		"localforage": "^1.10.0",
-		"match-sorter": "^6.3.1",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
-		"react-dropzone": "^14.2.3",
-		"react-hot-toast": "^2.4.0",
-		"react-router-dom": "^6.4.4",
-		"sort-by": "^1.2.0",
-		"truncate-ethereum-address": "^0.3.0",
-		"wagmi": "^0.8.6"
-	},
-	"devDependencies": {
-		"@commitlint/cli": "^17.3.0",
-		"@commitlint/config-conventional": "^17.3.0",
-		"@types/react": "^18.0.24",
-		"@types/react-dom": "^18.0.8",
-		"@vanilla-extract/vite-plugin": "^3.7.0",
-		"@vitejs/plugin-react": "^2.2.0",
-		"@vitest/ui": "^0.25.3",
-		"husky": "^8.0.2",
-		"typescript": "^4.6.4",
-		"vite": "^3.2.3",
-		"vitest": "^0.25.3"
-	}
+  "name": "minted",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "prepare": "husky install",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@alch/alchemy-web3": "^1.4.7",
+    "@vanilla-extract/css": "^1.9.2",
+    "alchemy-sdk": "^2.2.3",
+    "axios": "^1.2.0",
+    "ethers": "^5.7.2",
+    "localforage": "^1.10.0",
+    "match-sorter": "^6.3.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
+    "react-hot-toast": "^2.4.0",
+    "react-router-dom": "^6.4.4",
+    "sort-by": "^1.2.0",
+    "truncate-ethereum-address": "^0.3.0",
+    "wagmi": "^0.8.6"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.3.0",
+    "@commitlint/config-conventional": "^17.3.0",
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
+    "@vanilla-extract/vite-plugin": "^3.7.0",
+    "@vitejs/plugin-react": "^2.2.0",
+    "@vitest/ui": "^0.25.3",
+    "husky": "^8.0.2",
+    "typescript": "^4.6.4",
+    "vite": "^3.2.3",
+    "vitest": "^0.25.3"
+  }
 }

@@ -3,39 +3,42 @@ import { ethers } from 'ethers';
 import { useSigner, useAccount } from 'wagmi';
 
 import { en } from '../../lang';
+import { Success } from './Steps/Success';
+import { Fields } from './Steps/Fields/Fields';
 import { showToast } from '../../utils/showToast';
-import { section, form, button } from '../../App.css';
-import { TextInput } from '../../components/TextInput/TextInput';
-import MintzArtifact from '../../../artifacts/contracts/Mintz.sol/Mintz.json';
+import MintedArtifact from '../../../artifacts/contracts/Minted.sol/Minted.json';
 
 type MetaMaskError = {
   code: number;
   reason: string;
 };
 
+export type DeployerStep = 'fields' | 'success';
+
 export function Deployer() {
   const { address } = useAccount();
   const { data: signer, isLoading } = useSigner();
 
-  const [name, setName] = useState('Mintz');
+  const [name, setName] = useState('Minted');
   const [symbol, setSymbol] = useState('MINT');
+  const [step, setStep] = useState<DeployerStep>('fields');
+  const [deployedContractTxHash, setDeployedContractTxHash] = useState('');
 
-  async function handleDeploy(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
+  async function handleDeploy() {
     if (!address || !signer) {
-      showToast(en.common.connectMetaMask, '🦊');
-      return;
+      return showToast(en.common.connectMetaMask, '🦊');
     }
 
     try {
       const factory = new ethers.ContractFactory(
-        MintzArtifact.abi,
-        MintzArtifact.bytecode,
+        MintedArtifact.abi,
+        MintedArtifact.bytecode,
         signer
       );
       const contract = await factory.deploy();
-      await contract.deployTransaction.wait();
+      const receipt = await contract.deployTransaction.wait();
+      setDeployedContractTxHash(receipt.contractAddress);
+      setStep('success');
     } catch (error) {
       showToast(
         (error as MetaMaskError)?.reason || en.deployer.toast.errorDeploying,
@@ -44,31 +47,27 @@ export function Deployer() {
     }
   }
 
-  return (
-    <section className={section}>
-      <form className={form} onSubmit={handleDeploy}>
-        <div>
-          <TextInput
-            disabled
-            value={name}
-            onChange={setName}
-            label={en.deployer.form.name.label}
-            placeholder={en.deployer.form.name.placeholder}
-          />
+  if (step === 'fields') {
+    return (
+      <Fields
+        name={name}
+        setName={setName}
+        symbol={symbol}
+        setSymbol={setSymbol}
+        isLoading={isLoading}
+        handleDeploy={handleDeploy}
+      />
+    );
+  }
 
-          <TextInput
-            disabled
-            value={symbol}
-            onChange={setSymbol}
-            label={en.deployer.form.symbol.label}
-            placeholder={en.deployer.form.symbol.placeholder}
-          />
-        </div>
+  if (step === 'success') {
+    return (
+      <Success
+        setStep={setStep}
+        deployedContractTxHash={deployedContractTxHash}
+      />
+    );
+  }
 
-        <button type="submit" className={button} disabled={isLoading}>
-          {en.deployer.form.submitButtonTitle}
-        </button>
-      </form>
-    </section>
-  );
+  return null;
 }

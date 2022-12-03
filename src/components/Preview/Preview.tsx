@@ -8,10 +8,11 @@ import { label } from '../ImageSelect/ImageSelect.css';
 
 type PreviewProps = {
   src: string;
-  onImgError?: (bool: boolean) => void;
+  onImgLoad?: () => void;
+  onImgError?: () => void;
 };
 
-export function Preview({ src, onImgError }: PreviewProps) {
+export function Preview({ src, onImgLoad, onImgError }: PreviewProps) {
   const [imgSrc, setImgSrc] = useState<string | undefined>(src);
 
   useEffect(() => {
@@ -20,13 +21,13 @@ export function Preview({ src, onImgError }: PreviewProps) {
 
   function onLoad() {
     if (imgSrc !== fallbackImage) {
-      onImgError?.(false);
+      onImgLoad?.();
     }
   }
 
   function onError() {
     setImgSrc(fallbackImage);
-    onImgError?.(true);
+    onImgError?.();
   }
 
   return (

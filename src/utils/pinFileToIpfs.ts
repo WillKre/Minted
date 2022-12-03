@@ -3,7 +3,8 @@ import axios from 'axios';
 import { en } from '../lang';
 import { showToast } from './showToast';
 
-const VITE_PINATA_JWT = import.meta.env.VITE_PINATA_JWT;
+const VITE_PINATA_API_KEY = import.meta.env.VITE_PINATA_API_KEY;
+const VITE_PINATA_API_SECRET = import.meta.env.VITE_PINATA_API_SECRET;
 
 export async function pinFileToIPFS(file: File) {
   const formData = new FormData();
@@ -17,7 +18,8 @@ export async function pinFileToIPFS(file: File) {
     const { data } = await axios.post(url, formData, {
       headers: {
         'Content-Type': `multipart/form-data;`,
-        Authorization: `Bearer ${VITE_PINATA_JWT}`,
+        pinata_api_key: VITE_PINATA_API_KEY,
+        pinata_secret_api_key: VITE_PINATA_API_SECRET,
       },
     });
 

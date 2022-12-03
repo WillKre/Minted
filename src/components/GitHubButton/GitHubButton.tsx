@@ -4,7 +4,7 @@ import { button, image } from './GitHubButton.css';
 
 export function GitHubButton() {
   function navigateToRepo() {
-    window.open('https://github.com/WillKre/Mintz', '_blank');
+    window.open('https://github.com/WillKre/Minted', '_blank');
   }
 
   return (

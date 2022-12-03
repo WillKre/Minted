@@ -16,8 +16,8 @@ export const button = style({
 });
 
 export const image = style({
-  width: 20,
-  height: 20,
+  width: '20px',
+  height: '20px',
 });
 
 export const text = style({

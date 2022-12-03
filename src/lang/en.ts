@@ -1,5 +1,7 @@
 export const en = {
   common: {
+    back: 'Back',
+    home: 'Home',
     image: 'Image',
     preview: 'Preview',
     dragNDrop: "Drag 'n' drop an image or click here to upload to IPFS",
@@ -22,13 +24,18 @@ export const en = {
     form: {
       name: {
         label: 'Name',
-        placeholder: 'e.g. Mintz',
+        placeholder: 'e.g. Minted',
       },
       symbol: {
         label: 'Symbol',
         placeholder: 'e.g. MINT',
       },
+      info: 'Note: Name & Symbol customisation is coming soon!',
       submitButtonTitle: 'Deploy',
+    },
+    success: {
+      title: 'Successfully deployed contract!',
+      kicker: 'Check out the transaction here:',
     },
     toast: {
       errorDeploying: 'Error deploying contract',
@@ -55,12 +62,15 @@ export const en = {
     success: {
       title: 'Successfully minted your NFT!',
       kicker: 'Check out the transaction here:',
+      buttonText: 'Mint Another',
     },
     toast: {
+      errorMinting: 'An error occurred while attempting to mint your NFT',
       uploadingImage: 'Uploading your image to IPFS...',
       uploadedImage: 'Successfully uploaded your image',
       uploadImageError:
         'Unable to upload your image, please use the URI input if the problem persists',
+      mintButtonValidation: 'Please add a valid image',
       fileSelection: 'An error occurred while selecting this file',
       ipfs: 'Error pinning your JSON to IPFS',
     },

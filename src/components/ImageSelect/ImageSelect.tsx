@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 import {
@@ -12,7 +12,6 @@ import {
   labelAndAction,
 } from './ImageSelect.css';
 import { en } from '../../lang';
-import { Preview } from '../Preview';
 import { showToast } from '../../utils/showToast';
 import { labelActionButton } from '../../App.css';
 
@@ -25,7 +24,6 @@ type ImageSelectProps = {
 };
 
 export function ImageSelect({ action, onChange }: ImageSelectProps) {
-  const [preview, setPreview] = useState('');
   const {
     isFocused,
     isDragAccept,
@@ -55,7 +53,6 @@ export function ImageSelect({ action, onChange }: ImageSelectProps) {
     }
 
     if (acceptedFiles.length === 1) {
-      setPreview(URL.createObjectURL(acceptedFiles[0]));
       onChange(acceptedFiles[0]);
     }
   }, [acceptedFiles, fileRejections]);
@@ -63,9 +60,7 @@ export function ImageSelect({ action, onChange }: ImageSelectProps) {
   return (
     <div className={container}>
       <div className={labelAndAction}>
-        <label htmlFor={label} className={label}>
-          {en.common.image}
-        </label>
+        <label className={label}>{en.common.image}</label>
         {action && (
           <button
             type="button"
@@ -81,8 +76,6 @@ export function ImageSelect({ action, onChange }: ImageSelectProps) {
         <input {...getInputProps()} />
         <p className={instructions}>{en.common.dragNDrop}</p>
       </div>
-
-      {!!acceptedFiles.length && <Preview src={preview} />}
     </div>
   );
 }

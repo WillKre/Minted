@@ -19,14 +19,14 @@ type TextInputProps = {
 export function TextInput({
   label,
   value,
+  action,
   onChange,
   disabled,
   autoFocus,
   placeholder,
-  action,
 }: TextInputProps) {
-  function handleOnChange(event: ChangeEvent<HTMLInputElement>) {
-    onChange(event.target.value);
+  function handleOnChange({ target }: ChangeEvent<HTMLInputElement>) {
+    onChange(target.value);
   }
 
   return (

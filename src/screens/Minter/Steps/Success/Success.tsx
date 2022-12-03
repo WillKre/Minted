@@ -1,8 +1,10 @@
 import { Dispatch, SetStateAction } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { link } from './Success.css';
 import { en } from '../../../../lang';
-import { img, section, button } from '../../../../App.css';
+import { MinterStep } from '../../Minter';
+import { img, section, buttons, button } from '../../../../App.css';
 
 type SuccessProps = {
   data?: {
@@ -10,13 +12,19 @@ type SuccessProps = {
   };
   imageUri: string;
   resetForm: () => void;
-  setStep: Dispatch<SetStateAction<string>>;
+  setStep: Dispatch<SetStateAction<MinterStep>>;
 };
 
 export function Success({ data, imageUri, setStep, resetForm }: SuccessProps) {
+  const navigate = useNavigate();
+
   function handleResetScreen() {
     setStep('image');
     resetForm();
+  }
+
+  function handleGoToHome() {
+    navigate('/');
   }
 
   return (
@@ -27,6 +35,8 @@ export function Success({ data, imageUri, setStep, resetForm }: SuccessProps) {
           {en.minter.success.kicker}{' '}
           <a
             className={link}
+            target="_blank"
+            rel="noreferrer"
             href={`https://goerli.etherscan.io/tx/${data?.hash}`}
           >
             Etherscan
@@ -36,9 +46,14 @@ export function Success({ data, imageUri, setStep, resetForm }: SuccessProps) {
 
       <img src={imageUri} className={img} />
 
-      <button type="button" className={button} onClick={handleResetScreen}>
-        Mint Another
-      </button>
+      <div className={buttons}>
+        <button type="button" className={button} onClick={handleResetScreen}>
+          {en.minter.success.buttonText}
+        </button>
+        <button type="button" className={button} onClick={handleGoToHome}>
+          {en.common.home}
+        </button>
+      </div>
     </section>
   );
 }

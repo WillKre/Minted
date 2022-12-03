@@ -14,23 +14,31 @@ import { Success } from './Steps/Success';
 import { showToast } from '../../utils/showToast';
 import { pinJSONToIPFS } from '../../utils/pinJsonToIpfs';
 import { pinFileToIPFS } from '../../utils/pinFileToIpfs';
-import MintzArtifact from '../../../artifacts/contracts/Mintz.sol/Mintz.json';
+import MintedArtifact from '../../../artifacts/contracts/Minted.sol/Minted.json';
+
+export type MinterStep = 'image' | 'fields' | 'success';
 
 export function Minter() {
-  const [step, setStep] = useState('image');
+  const [step, setStep] = useState<MinterStep>('image');
   const { address } = useAccount();
   const [imageUri, setImageUri] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
-  const { config } = usePrepareContractWrite({
+  const {
+    config,
+    error: prepareError,
+    isError: isPrepareError,
+  } = usePrepareContractWrite({
     args: [address, ''],
-    abi: MintzArtifact.abi,
+    abi: MintedArtifact.abi,
     functionName: 'mintNFT',
-    address: import.meta.env.VITE_CONTRACT_ADDRESS,
+    address:
+      import.meta.env.VITE_CONTRACT_ADDRESS ||
+      '@todo custom address to be added here',
   });
-  const { data, write } = useContractWrite(config);
-  const { isLoading: isMinting, isSuccess } = useWaitForTransaction({
+  const { data, error, isError, write } = useContractWrite(config);
+  const { isLoading, isSuccess } = useWaitForTransaction({
     hash: data?.hash,
   });
 
@@ -45,17 +53,9 @@ export function Minter() {
     if (pinataUrl) setImageUri(pinataUrl);
   }
 
-  function handleGoToFields(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setStep('fields');
-  }
-
-  async function handleMint(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
+  async function handleMint() {
     if (!address) {
-      showToast(en.common.connectMetaMask, '🦊');
-      return;
+      return showToast(en.common.connectMetaMask, '🦊');
     }
 
     const { pinataUrl } = await pinJSONToIPFS({
@@ -74,14 +74,20 @@ export function Minter() {
 
   useEffect(() => {
     if (isSuccess) setStep('success');
-  }, [isSuccess]);
+    if (isPrepareError || isError) {
+      showToast(
+        (prepareError || error)?.message || en.minter.toast.errorMinting,
+        '🚨'
+      );
+    }
+  }, [isSuccess, isError, isPrepareError]);
 
   if (step === 'image') {
     return (
       <Image
+        setStep={setStep}
         imageUri={imageUri}
         setImageUri={setImageUri}
-        onSubmit={handleGoToFields}
         handleSelectImageSuccess={handleSelectImageSuccess}
       />
     );
@@ -92,10 +98,11 @@ export function Minter() {
       <Fields
         name={name}
         setName={setName}
+        setStep={setStep}
+        isMinting={isLoading}
         description={description}
-        isMinting={isMinting}
         setDescription={setDescription}
-        onSubmit={handleMint}
+        handleMint={handleMint}
       />
     );
   }
