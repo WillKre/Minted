@@ -3,14 +3,13 @@ import { useEffect, useState } from 'react';
 import { en } from '../../lang';
 import { img } from '../../App.css';
 import { container } from './Preview.css';
+import fallbackImage from './fallback.png';
 import { label } from '../ImageSelect/ImageSelect.css';
 
 type PreviewProps = {
   src: string;
   onImgError?: (bool: boolean) => void;
 };
-
-const fallback = 'https://demofree.sirv.com/nope-not-here.jpg';
 
 export function Preview({ src, onImgError }: PreviewProps) {
   const [imgSrc, setImgSrc] = useState<string | undefined>(src);
@@ -20,11 +19,13 @@ export function Preview({ src, onImgError }: PreviewProps) {
   }, [src]);
 
   function onLoad() {
-    onImgError?.(false);
+    if (imgSrc !== fallbackImage) {
+      onImgError?.(false);
+    }
   }
 
   function onError() {
-    setImgSrc(fallback);
+    setImgSrc(fallbackImage);
     onImgError?.(true);
   }
 
