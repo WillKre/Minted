@@ -12,7 +12,10 @@ export const button = style({
   alignItems: 'center',
   fontWeight: 'bolder',
   borderRadius: '0.5rem',
-  background: 'linear-gradient(to right, #8e2de2, #4a00e0);',
+  backgroundImage: 'linear-gradient(rgb(32, 39, 56) 0px, rgb(7, 8, 22) 100%)',
+  ':hover': {
+    backgroundImage: 'linear-gradient(rgb(32, 39, 56) 0px, rgb(7, 8, 70) 100%)',
+  },
 });
 
 export const image = style({

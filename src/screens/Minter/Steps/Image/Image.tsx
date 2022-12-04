@@ -11,6 +11,7 @@ import { TextInput } from '../../../../components/TextInput/TextInput';
 
 type ImageProps = {
   imageUri: string;
+  contractAddress: string;
   setStep: Dispatch<SetStateAction<MinterStep>>;
   setImageUri: Dispatch<SetStateAction<string>>;
   handleSelectImageSuccess: (image: File) => void;
@@ -20,6 +21,7 @@ export function Image({
   setStep,
   imageUri,
   setImageUri,
+  contractAddress,
   handleSelectImageSuccess,
 }: ImageProps) {
   const navigate = useNavigate();
@@ -50,6 +52,13 @@ export function Image({
     <section className={section}>
       <form className={form} onSubmit={onSubmit}>
         <div>
+          <TextInput
+            disabled
+            autoFocus
+            onChange={() => {}}
+            value={contractAddress}
+            label={en.minter.form.contract.label}
+          />
           {showTextField ? (
             <TextInput
               autoFocus
@@ -76,7 +85,7 @@ export function Image({
             <Preview
               src={imageUri}
               onImgLoad={() => setImgHasError(false)}
-              onImgError={() => setImgHasError(true)}
+              onImgError={() => setImgHasError(false)}
             />
           )}
         </div>

@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css';
 
 export const container = style({
   display: 'flex',
-  marginTop: '2rem',
+  marginTop: '1rem',
   flexDirection: 'column',
 });
 

@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   useAccount,
@@ -6,6 +6,7 @@ import {
   useWaitForTransaction,
   usePrepareContractWrite,
 } from 'wagmi';
+import { useLocation } from 'react-router-dom';
 
 import { en } from '../../lang';
 import { Image } from './Steps/Image';
@@ -19,11 +20,14 @@ import MintedArtifact from '../../../artifacts/contracts/Minted.sol/Minted.json'
 export type MinterStep = 'image' | 'fields' | 'success';
 
 export function Minter() {
+  const location = useLocation();
   const [step, setStep] = useState<MinterStep>('image');
   const { address } = useAccount();
   const [imageUri, setImageUri] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const contractAddress =
+    location.state?.contractAddress || import.meta.env.VITE_CONTRACT_ADDRESS;
 
   const {
     config,
@@ -33,9 +37,7 @@ export function Minter() {
     args: [address, ''],
     abi: MintedArtifact.abi,
     functionName: 'mintNFT',
-    address:
-      import.meta.env.VITE_CONTRACT_ADDRESS ||
-      '@todo custom address to be added here',
+    address: contractAddress,
   });
   const { data, error, isError, write } = useContractWrite(config);
   const { isLoading, isSuccess } = useWaitForTransaction({
@@ -88,6 +90,7 @@ export function Minter() {
         setStep={setStep}
         imageUri={imageUri}
         setImageUri={setImageUri}
+        contractAddress={contractAddress}
         handleSelectImageSuccess={handleSelectImageSuccess}
       />
     );
@@ -100,9 +103,9 @@ export function Minter() {
         setName={setName}
         setStep={setStep}
         isMinting={isLoading}
+        handleMint={handleMint}
         description={description}
         setDescription={setDescription}
-        handleMint={handleMint}
       />
     );
   }

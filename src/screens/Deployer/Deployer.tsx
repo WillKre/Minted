@@ -21,8 +21,8 @@ export function Deployer() {
 
   const [name, setName] = useState('Minted');
   const [symbol, setSymbol] = useState('MINT');
-  const [step, setStep] = useState<DeployerStep>('fields');
-  const [deployedContractTxHash, setDeployedContractTxHash] = useState('');
+  const [step, setStep] = useState<DeployerStep>('success');
+  const [deployedContractAddress, setDeployedContractAddress] = useState('');
 
   async function handleDeploy() {
     if (!address || !signer) {
@@ -37,7 +37,7 @@ export function Deployer() {
       );
       const contract = await factory.deploy();
       const receipt = await contract.deployTransaction.wait();
-      setDeployedContractTxHash(receipt.contractAddress);
+      setDeployedContractAddress(receipt.contractAddress);
       setStep('success');
     } catch (error) {
       showToast(
@@ -61,12 +61,7 @@ export function Deployer() {
   }
 
   if (step === 'success') {
-    return (
-      <Success
-        setStep={setStep}
-        deployedContractTxHash={deployedContractTxHash}
-      />
-    );
+    return <Success deployedContractAddress={deployedContractAddress} />;
   }
 
   return null;

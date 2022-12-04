@@ -6,10 +6,10 @@ import { container, name, input, labelAndAction } from './TextInput.css';
 type TextInputProps = {
   label: string;
   value: string;
-  placeholder: string;
+  onChange: Dispatch<SetStateAction<string>>;
   disabled?: boolean;
   autoFocus?: boolean;
-  onChange: Dispatch<SetStateAction<string>>;
+  placeholder?: string;
   action?: {
     label: string;
     onClick: () => void;

@@ -13,9 +13,21 @@ export const buttonContent = style({
   display: 'flex',
   alignItems: 'center',
   borderRadius: '0.5rem',
+  flexDirection: 'column',
   justifyContent: 'center',
   backgroundImage: 'linear-gradient(rgb(32, 39, 56) 0px, rgb(7, 8, 22) 100%)',
   ':hover': {
     backgroundImage: 'linear-gradient(rgb(32, 39, 56) 0px, rgb(7, 8, 70) 100%)',
   },
+});
+
+export const topText = style({
+  fontSize: '1.25rem',
+  fontWeight: 'bold',
+});
+
+export const bottomText = style({
+  fontSize: '0.875rem',
+  marginTop: '1rem',
+  color: '#ccc',
 });

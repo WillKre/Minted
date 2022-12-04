@@ -2,7 +2,7 @@ import { Dispatch, FormEvent, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { en } from '../../../../lang';
-import { button, form, section } from '../../../../App.css';
+import { button, form, section, text } from '../../../../App.css';
 import { TextInput } from '../../../../components/TextInput/TextInput';
 
 type FieldsProps = {
@@ -53,7 +53,7 @@ export function Fields({
             label={en.deployer.form.symbol.label}
             placeholder={en.deployer.form.symbol.placeholder}
           />
-          <p>{en.deployer.form.info}</p>
+          <p className={text}>{en.deployer.form.info}</p>
         </div>
 
         <div>

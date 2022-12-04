@@ -53,8 +53,12 @@ export const labelActionButton = style({
 });
 
 export const img = style({
-  width: 200,
-  height: 200,
+  width: '120px',
+  height: '120px',
   margin: '0 auto',
   borderRadius: '0.5rem',
+});
+
+export const text = style({
+  fontSize: '0.875rem',
 });

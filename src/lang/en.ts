@@ -4,6 +4,7 @@ export const en = {
     home: 'Home',
     image: 'Image',
     preview: 'Preview',
+    contract: 'Contract',
     dragNDrop: "Drag 'n' drop an image or click here to upload to IPFS",
     connect: 'Connect',
     connectMetaMask: 'Please connect to MetaMask',
@@ -17,8 +18,10 @@ export const en = {
   welcome: {
     title: 'Welcome!',
     subtitle: 'To get started, select one of the following options:',
-    deployButtonTitle: 'Deploy your NFT Collection',
-    mintButtonTitle: 'Mint your NFT',
+    deployButtonTitle: 'Deploy',
+    deployButtonSubtitle: 'your own NFT contract',
+    mintButtonTitle: 'Mint',
+    mintButtonSubtitle: 'your own NFT token',
   },
   deployer: {
     form: {
@@ -36,6 +39,7 @@ export const en = {
     success: {
       title: 'Successfully deployed contract!',
       kicker: 'Check out the transaction here:',
+      mintNft: 'Mint NFT using this contract',
     },
     toast: {
       errorDeploying: 'Error deploying contract',
@@ -43,6 +47,9 @@ export const en = {
   },
   minter: {
     form: {
+      contract: {
+        label: 'Contract',
+      },
       link: {
         label: 'Link',
         placeholder: 'e.g. https://gateway.pinata.cloud/ipfs/<hash>',

@@ -2,7 +2,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { en } from '../../lang';
 import { Button } from './Button';
-import { buttons } from './Welcome.css';
+import { text } from '../../App.css';
+import { buttons, title } from './Welcome.css';
 
 export function Welcome() {
   const navigate = useNavigate();
@@ -17,15 +18,20 @@ export function Welcome() {
 
   return (
     <section>
-      <h1>{en.welcome.title}</h1>
-      <p>{en.welcome.subtitle}</p>
+      <h1 className={title}>{en.welcome.title}</h1>
+      <p className={text}>{en.welcome.subtitle}</p>
 
       <div className={buttons}>
         <Button
           title={en.welcome.deployButtonTitle}
+          subtitle={en.welcome.deployButtonSubtitle}
           onClick={handleGoToDeploy}
         />
-        <Button title={en.welcome.mintButtonTitle} onClick={handleGoToMint} />
+        <Button
+          title={en.welcome.mintButtonTitle}
+          subtitle={en.welcome.mintButtonSubtitle}
+          onClick={handleGoToMint}
+        />
       </div>
     </section>
   );
