@@ -5,7 +5,7 @@ export const title = style({
 });
 
 export const buttons = style({
-  marginTop: 36,
   display: 'flex',
+  marginTop: '36px',
   flexDirection: 'column',
 });

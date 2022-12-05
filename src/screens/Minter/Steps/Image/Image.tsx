@@ -12,8 +12,11 @@ import { TextInput } from '../../../../components/TextInput/TextInput';
 type ImageProps = {
   imageUri: string;
   contractAddress: string;
+  isContractWriteValid: boolean;
   setStep: Dispatch<SetStateAction<MinterStep>>;
   setImageUri: Dispatch<SetStateAction<string>>;
+  setContractAddress: Dispatch<SetStateAction<string>>;
+  resetAddress: () => void;
   handleSelectImageSuccess: (image: File) => void;
 };
 
@@ -21,22 +24,38 @@ export function Image({
   setStep,
   imageUri,
   setImageUri,
+  resetAddress,
   contractAddress,
+  setContractAddress,
+  isContractWriteValid,
   handleSelectImageSuccess,
 }: ImageProps) {
   const navigate = useNavigate();
 
   const [imgHasError, setImgHasError] = useState(false);
   const [showTextField, setShowTextField] = useState(false);
+  const [useCustomAddress, setUseCustomAddress] = useState(false);
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (!isContractWriteValid) {
+      return showToast(en.minter.toast.invalidContractAddress, '🚨');
+    }
 
     if (!imageUri || imgHasError) {
       return showToast(en.minter.toast.mintButtonValidation, '🏞');
     }
 
     setStep('fields');
+  }
+
+  function switchUseCustomAddress() {
+    setUseCustomAddress(!useCustomAddress);
+
+    if (useCustomAddress) {
+      resetAddress();
+    }
   }
 
   function switchImageType() {
@@ -53,31 +72,37 @@ export function Image({
       <form className={form} onSubmit={onSubmit}>
         <div>
           <TextInput
-            disabled
             autoFocus
-            onChange={() => {}}
             value={contractAddress}
+            disabled={!useCustomAddress}
+            onChange={setContractAddress}
             label={en.minter.form.contract.label}
+            action={{
+              label: useCustomAddress
+                ? '- Use default Minted contract'
+                : '- Switch to custom contract',
+              onClick: switchUseCustomAddress,
+            }}
           />
           {showTextField ? (
             <TextInput
               autoFocus
-              action={{
-                label: '- Switch to image upload',
-                onClick: switchImageType,
-              }}
               value={imageUri}
               onChange={setImageUri}
               label={en.minter.form.link.label}
               placeholder={en.minter.form.link.placeholder}
+              action={{
+                label: '- Switch to image upload',
+                onClick: switchImageType,
+              }}
             />
           ) : (
             <ImageSelect
+              onChange={handleSelectImageSuccess}
               action={{
                 label: '- Switch to URI input',
                 onClick: switchImageType,
               }}
-              onChange={handleSelectImageSuccess}
             />
           )}
 
@@ -85,7 +110,7 @@ export function Image({
             <Preview
               src={imageUri}
               onImgLoad={() => setImgHasError(false)}
-              onImgError={() => setImgHasError(false)}
+              onImgError={() => setImgHasError(true)}
             />
           )}
         </div>

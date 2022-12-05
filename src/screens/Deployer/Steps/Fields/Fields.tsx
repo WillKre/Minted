@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import blocks from '../blocks.png';
 import { en } from '../../../../lang';
-import { button, form, section, text, smallImg } from '../../../../App.css';
 import { TextInput } from '../../../../components/TextInput/TextInput';
+import { button, form, section, text, smallImg } from '../../../../App.css';
 
 type FieldsProps = {
   name: string;

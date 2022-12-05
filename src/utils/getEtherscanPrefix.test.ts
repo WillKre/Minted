@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { getEtherscanPrefix } from './getEtherscanPrefix';
 
-describe('getEtherscanPrefix', () => {
+describe('getEtherscanPrefix()', () => {
   describe('given a matching input', () => {
     it('should return the mapped value', () => {
       expect(getEtherscanPrefix('homestead')).toEqual('');

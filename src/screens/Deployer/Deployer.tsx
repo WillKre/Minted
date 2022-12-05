@@ -37,6 +37,7 @@ export function Deployer() {
       );
       const contract = await factory.deploy();
       const receipt = await contract.deployTransaction.wait();
+
       setDeployedContractAddress(receipt.contractAddress);
       setStep('success');
     } catch (error) {

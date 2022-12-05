@@ -6,8 +6,8 @@ import { en } from '../../../../lang';
 import { link, img } from './Success.css';
 import { MinterStep } from '../../Minter';
 import { section, buttons, button } from '../../../../App.css';
-import { getEtherscanPrefix } from '../../../../utils/getEtherscanPrefix';
 import { ZoomableImage } from '../../../../components/ZoomableImage';
+import { getEtherscanPrefix } from '../../../../utils/getEtherscanPrefix';
 
 type SuccessProps = {
   data?: {

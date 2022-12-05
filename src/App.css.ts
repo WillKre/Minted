@@ -42,8 +42,8 @@ export const button = style({
 
 export const labelActionButton = style({
   border: 'none',
-  marginLeft: 12,
-  marginBottom: 6,
+  marginLeft: '12px',
+  marginBottom: '6px',
   fontStyle: 'italic',
   background: 'transparent',
   ':hover': {

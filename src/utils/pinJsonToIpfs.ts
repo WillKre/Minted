@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { showToast } from './showToast';
 
-const VITE_PINATA_API_KEY = import.meta.env.VITE_PINATA_API_KEY;
-const VITE_PINATA_API_SECRET = import.meta.env.VITE_PINATA_API_SECRET;
+const { VITE_PINATA_API_KEY, VITE_PINATA_API_SECRET } = import.meta.env;
 
 type ERC721MetaDataStandard = {
   name: string;
@@ -26,10 +25,8 @@ export async function pinJSONToIPFS(jsonBody: ERC721MetaDataStandard) {
         pinata_secret_api_key: VITE_PINATA_API_SECRET,
       },
       data: {
-        pinataOptions: {
-          cidVersion: 1,
-        },
         pinataContent: jsonBody,
+        pinataOptions: { cidVersion: 1 },
       },
     });
 

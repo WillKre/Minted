@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import {
   useAccount,
@@ -13,36 +13,64 @@ import { Image } from './Steps/Image';
 import { Fields } from './Steps/Fields';
 import { Success } from './Steps/Success';
 import { showToast } from '../../utils/showToast';
+import { capitalize } from '../../utils/capitalize';
 import { pinJSONToIPFS } from '../../utils/pinJsonToIpfs';
 import { pinFileToIPFS } from '../../utils/pinFileToIpfs';
 import MintedArtifact from '../../../artifacts/contracts/Minted.sol/Minted.json';
 
+const { VITE_CONTRACT_ADDRESS } = import.meta.env;
+
 export type MinterStep = 'image' | 'fields' | 'success';
 
+type WagmiError = Error & { reason?: string };
+
 export function Minter() {
-  const location = useLocation();
-  const [step, setStep] = useState<MinterStep>('image');
+  const { state } = useLocation();
   const { address } = useAccount();
+
+  const [step, setStep] = useState<MinterStep>('image');
   const [imageUri, setImageUri] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const contractAddress =
-    location.state?.contractAddress || import.meta.env.VITE_CONTRACT_ADDRESS;
+  const [isContractWriteValid, setIsContractWriteValid] = useState(false);
+  const initialContractAddress: string =
+    state?.contractAddress || VITE_CONTRACT_ADDRESS;
+  const [contractAddress, setContractAddress] = useState<string>(
+    initialContractAddress
+  );
 
-  const {
-    config,
-    error: prepareError,
-    isError: isPrepareError,
-  } = usePrepareContractWrite({
+  const { config } = usePrepareContractWrite({
     args: [address, ''],
     abi: MintedArtifact.abi,
     functionName: 'mintNFT',
     address: contractAddress,
+    onSuccess: () => {
+      setIsContractWriteValid(true);
+    },
+    onError: (error: WagmiError) => {
+      setIsContractWriteValid(false);
+      showToast(
+        capitalize(error?.reason) || en.minter.toast.errorPreparing,
+        '🚨'
+      );
+    },
   });
-  const { data, error, isError, write } = useContractWrite(config);
-  const { isLoading, isSuccess } = useWaitForTransaction({
+  const { data, write } = useContractWrite(config);
+  const { isLoading } = useWaitForTransaction({
     hash: data?.hash,
+    onSuccess: () => setStep('success'),
+    onError: (error: WagmiError) => {
+      setIsContractWriteValid(false);
+      showToast(
+        capitalize(error?.reason) || en.minter.toast.errorMinting,
+        '🚨'
+      );
+    },
   });
+
+  function resetAddress() {
+    setContractAddress(initialContractAddress);
+  }
 
   function resetForm() {
     setImageUri('');
@@ -52,7 +80,7 @@ export function Minter() {
 
   async function handleSelectImageSuccess(image: File) {
     const { pinataUrl } = await pinFileToIPFS(image);
-    if (pinataUrl) setImageUri(pinataUrl);
+    setImageUri(pinataUrl);
   }
 
   async function handleMint() {
@@ -74,23 +102,16 @@ export function Minter() {
     }
   }
 
-  useEffect(() => {
-    if (isSuccess) setStep('success');
-    if (isPrepareError || isError) {
-      showToast(
-        (prepareError || error)?.message || en.minter.toast.errorMinting,
-        '🚨'
-      );
-    }
-  }, [isSuccess, isError, isPrepareError]);
-
   if (step === 'image') {
     return (
       <Image
         setStep={setStep}
         imageUri={imageUri}
         setImageUri={setImageUri}
+        resetAddress={resetAddress}
         contractAddress={contractAddress}
+        setContractAddress={setContractAddress}
+        isContractWriteValid={isContractWriteValid}
         handleSelectImageSuccess={handleSelectImageSuccess}
       />
     );

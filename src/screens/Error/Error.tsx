@@ -14,19 +14,17 @@ export function Error() {
   const error = useRouteError() as RouteError;
 
   return (
-    <div>
+    <>
       <GitHubButton />
 
       <Header />
 
       <View>
         <h1>{en.errorPage.title}</h1>
-        <div>
-          <p>
-            <i>{error.statusText || error.message}</i> - {en.errorPage.subtitle}
-          </p>
-        </div>
+        <p>
+          <i>{error.statusText || error.message}</i> - {en.errorPage.subtitle}
+        </p>
       </View>
-    </div>
+    </>
   );
 }

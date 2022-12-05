@@ -3,8 +3,7 @@ import axios from 'axios';
 import { en } from '../lang';
 import { showToast } from './showToast';
 
-const VITE_PINATA_API_KEY = import.meta.env.VITE_PINATA_API_KEY;
-const VITE_PINATA_API_SECRET = import.meta.env.VITE_PINATA_API_SECRET;
+const { VITE_PINATA_API_KEY, VITE_PINATA_API_SECRET } = import.meta.env;
 
 export async function pinFileToIPFS(file: File) {
   const formData = new FormData();
@@ -32,7 +31,7 @@ export async function pinFileToIPFS(file: File) {
     showToast(en.minter.toast.uploadImageError, '🚨');
 
     return {
-      pinataUrl: null,
+      pinataUrl: '',
     };
   }
 }

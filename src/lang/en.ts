@@ -77,6 +77,9 @@ export const en = {
       imgAlt: 'The minted NFT',
     },
     toast: {
+      invalidContractAddress: 'Invalid contract address',
+      errorPreparing:
+        'An error occurred while preparing your transaction. Please check your contract address.',
       errorMinting: 'An error occurred while attempting to mint your NFT',
       uploadingImage: 'Uploading your image to IPFS...',
       uploadedImage: 'Successfully uploaded your image',

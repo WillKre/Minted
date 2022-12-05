@@ -27,7 +27,7 @@ export const topText = style({
 });
 
 export const bottomText = style({
-  fontSize: '0.875rem',
-  marginTop: '1rem',
   color: '#ccc',
+  marginTop: '1rem',
+  fontSize: '0.875rem',
 });
