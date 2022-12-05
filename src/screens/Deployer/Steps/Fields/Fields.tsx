@@ -1,8 +1,9 @@
 import { Dispatch, FormEvent, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import blocks from '../blocks.png';
 import { en } from '../../../../lang';
-import { button, form, section, text } from '../../../../App.css';
+import { button, form, section, text, smallImg } from '../../../../App.css';
 import { TextInput } from '../../../../components/TextInput/TextInput';
 
 type FieldsProps = {
@@ -55,6 +56,12 @@ export function Fields({
           />
           <p className={text}>{en.deployer.form.info}</p>
         </div>
+
+        <img
+          src={blocks}
+          className={smallImg}
+          alt={en.deployer.success.imgAlt}
+        />
 
         <div>
           <button type="submit" className={button} disabled={isLoading}>

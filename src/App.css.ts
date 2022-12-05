@@ -52,9 +52,16 @@ export const labelActionButton = style({
   },
 });
 
-export const img = style({
+export const smallImg = style({
   width: '120px',
   height: '120px',
+  margin: '0 auto',
+  borderRadius: '0.5rem',
+});
+
+export const img = style({
+  width: '200px',
+  height: '200px',
   margin: '0 auto',
   borderRadius: '0.5rem',
 });

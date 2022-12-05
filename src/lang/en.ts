@@ -1,15 +1,18 @@
 export const en = {
   common: {
+    nft: 'NFT',
     back: 'Back',
     home: 'Home',
     image: 'Image',
     preview: 'Preview',
-    contract: 'Contract',
-    dragNDrop: "Drag 'n' drop an image or click here to upload to IPFS",
     connect: 'Connect',
-    connectMetaMask: 'Please connect to MetaMask',
+    contract: 'Contract',
+    blockchain: 'Blockchain',
+    transaction: 'Transaction',
     gitHubLogoAlt: 'GitHub logo',
     metaMaskLogoAlt: 'Metamask logo',
+    connectMetaMask: 'Please connect to MetaMask',
+    dragNDrop: "Drag 'n' drop an image or click here to upload to IPFS",
   },
   errorPage: {
     title: 'Oops!',
@@ -40,6 +43,7 @@ export const en = {
       title: 'Successfully deployed contract!',
       kicker: 'Check out the transaction here:',
       mintNft: 'Mint NFT using this contract',
+      imgAlt: 'Blockchain',
     },
     toast: {
       errorDeploying: 'Error deploying contract',
@@ -70,6 +74,7 @@ export const en = {
       title: 'Successfully minted your NFT!',
       kicker: 'Check out the transaction here:',
       buttonText: 'Mint Another',
+      imgAlt: 'The minted NFT',
     },
     toast: {
       errorMinting: 'An error occurred while attempting to mint your NFT',

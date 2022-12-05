@@ -1,15 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 import { truncate } from 'truncate-ethereum-address';
+import { useNetwork } from 'wagmi';
 
-import { link } from './Success.css';
+import blocks from '../blocks.png';
 import { en } from '../../../../lang';
-import { section, button, buttons } from '../../../../App.css';
+import { title, link } from './Success.css';
+import { section, button, buttons, smallImg } from '../../../../App.css';
+import { getEtherscanPrefix } from '../../../../utils/getEtherscanPrefix';
 
 type SuccessProps = {
   deployedContractAddress: string;
 };
 
 export function Success({ deployedContractAddress }: SuccessProps) {
+  const { chain } = useNetwork();
   const navigate = useNavigate();
 
   function handleGoToMint() {
@@ -23,21 +27,22 @@ export function Success({ deployedContractAddress }: SuccessProps) {
   return (
     <section className={section}>
       <div>
-        <h3>{en.deployer.success.title}</h3>
+        <h3 className={title}>{en.deployer.success.title}</h3>
+
         <p>
-          {en.deployer.success.kicker}{' '}
+          <b>{en.common.transaction}:</b>
+        </p>
+        <p className={link}>
           <a
-            className={link}
             target="_blank"
             rel="noreferrer"
-            href={`https://goerli.etherscan.io/address/${deployedContractAddress}`}
+            href={`https://${getEtherscanPrefix(
+              chain?.network
+            )}etherscan.io/address/${deployedContractAddress}`}
           >
             Etherscan
           </a>
         </p>
-      </div>
-
-      <div className={buttons}>
         <p>
           <b>{en.common.contract}:</b>
         </p>
@@ -49,6 +54,8 @@ export function Success({ deployedContractAddress }: SuccessProps) {
           })}
         </p>
       </div>
+
+      <img src={blocks} className={smallImg} alt={en.deployer.success.imgAlt} />
 
       <div className={buttons}>
         <button type="button" className={button} onClick={handleGoToMint}>

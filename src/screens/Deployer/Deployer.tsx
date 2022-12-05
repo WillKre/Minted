@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { ethers } from 'ethers';
 import { useSigner, useAccount } from 'wagmi';
 
@@ -21,7 +21,7 @@ export function Deployer() {
 
   const [name, setName] = useState('Minted');
   const [symbol, setSymbol] = useState('MINT');
-  const [step, setStep] = useState<DeployerStep>('success');
+  const [step, setStep] = useState<DeployerStep>('fields');
   const [deployedContractAddress, setDeployedContractAddress] = useState('');
 
   async function handleDeploy() {

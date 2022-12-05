@@ -1,10 +1,13 @@
 import { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useNetwork } from 'wagmi';
 
-import { link } from './Success.css';
 import { en } from '../../../../lang';
+import { link, img } from './Success.css';
 import { MinterStep } from '../../Minter';
-import { img, section, buttons, button } from '../../../../App.css';
+import { section, buttons, button } from '../../../../App.css';
+import { getEtherscanPrefix } from '../../../../utils/getEtherscanPrefix';
+import { ZoomableImage } from '../../../../components/ZoomableImage';
 
 type SuccessProps = {
   data?: {
@@ -16,6 +19,7 @@ type SuccessProps = {
 };
 
 export function Success({ data, imageUri, setStep, resetForm }: SuccessProps) {
+  const { chain } = useNetwork();
   const navigate = useNavigate();
 
   function handleResetScreen() {
@@ -37,14 +41,20 @@ export function Success({ data, imageUri, setStep, resetForm }: SuccessProps) {
             className={link}
             target="_blank"
             rel="noreferrer"
-            href={`https://goerli.etherscan.io/tx/${data?.hash}`}
+            href={`https://${getEtherscanPrefix(
+              chain?.network
+            )}etherscan.io/tx/${data?.hash}`}
           >
             Etherscan
           </a>
         </p>
       </div>
 
-      <img src={imageUri} className={img} />
+      <ZoomableImage
+        src={imageUri}
+        className={img}
+        alt={en.minter.success.imgAlt}
+      />
 
       <div className={buttons}>
         <button type="button" className={button} onClick={handleResetScreen}>

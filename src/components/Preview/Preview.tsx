@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 
 import { en } from '../../lang';
-import { img } from '../../App.css';
+import { smallImg } from '../../App.css';
 import { container } from './Preview.css';
 import fallbackImage from './fallback.png';
+import { ZoomableImage } from '../ZoomableImage';
 import { label } from '../ImageSelect/ImageSelect.css';
 
 type PreviewProps = {
@@ -33,7 +34,13 @@ export function Preview({ src, onImgLoad, onImgError }: PreviewProps) {
   return (
     <div className={container}>
       <label className={label}>{en.common.preview}</label>
-      <img src={imgSrc} className={img} onLoad={onLoad} onError={onError} />
+      <ZoomableImage
+        src={imgSrc}
+        className={smallImg}
+        onLoad={onLoad}
+        onError={onError}
+        alt={en.common.nft}
+      />
     </div>
   );
 }
