@@ -26,7 +26,7 @@ export const button = style({
   width: '100%',
   color: '#FFF',
   border: 'none',
-  padding: '1rem',
+  height: '3rem',
   cursor: 'pointer',
   marginTop: '0.5rem',
   borderRadius: '0.5rem',
@@ -68,4 +68,11 @@ export const img = style({
 
 export const text = style({
   fontSize: '0.875rem',
+});
+
+export const loadingWrapper = style({
+  width: '100%',
+  height: '2rem',
+  display: 'flex',
+  justifyContent: 'center',
 });

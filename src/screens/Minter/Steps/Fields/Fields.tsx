@@ -1,9 +1,11 @@
 import { Dispatch, FormEvent, SetStateAction } from 'react';
+import Lottie from 'lottie-react';
 
 import { en } from '../../../../lang';
 import { MinterStep } from '../../Minter';
-import { form, section, button } from '../../../../App.css';
+import loadingAnimation from '../../../../assets/loading.json';
 import { TextInput } from '../../../../components/TextInput/TextInput';
+import { form, section, button, loadingWrapper } from '../../../../App.css';
 
 type FieldsProps = {
   name: string;
@@ -54,7 +56,13 @@ export function Fields({
 
         <div>
           <button type="submit" className={button} disabled={isMinting}>
-            {isMinting ? en.minter.minting : en.minter.mint}
+            {isMinting ? (
+              <div className={loadingWrapper}>
+                <Lottie animationData={loadingAnimation} />
+              </div>
+            ) : (
+              en.minter.mint
+            )}
           </button>
           <button type="button" className={button} onClick={handleGoBack}>
             {en.common.back}

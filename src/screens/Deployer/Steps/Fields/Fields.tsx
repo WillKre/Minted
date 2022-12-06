@@ -1,15 +1,24 @@
 import { Dispatch, FormEvent, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Lottie from 'lottie-react';
 
 import blocks from '../blocks.png';
 import { en } from '../../../../lang';
+import loadingAnimation from '../../../../assets/loading.json';
 import { TextInput } from '../../../../components/TextInput/TextInput';
-import { button, form, section, text, smallImg } from '../../../../App.css';
+import {
+  form,
+  text,
+  button,
+  section,
+  smallImg,
+  loadingWrapper,
+} from '../../../../App.css';
 
 type FieldsProps = {
   name: string;
   symbol: string;
-  isLoading: boolean;
+  isDeploying: boolean;
   setName: Dispatch<SetStateAction<string>>;
   setSymbol: Dispatch<SetStateAction<string>>;
   handleDeploy: () => Promise<void>;
@@ -20,7 +29,7 @@ export function Fields({
   symbol,
   setName,
   setSymbol,
-  isLoading,
+  isDeploying,
   handleDeploy,
 }: FieldsProps) {
   const navigate = useNavigate();
@@ -64,8 +73,14 @@ export function Fields({
         />
 
         <div>
-          <button type="submit" className={button} disabled={isLoading}>
-            {en.deployer.form.submitButtonTitle}
+          <button type="submit" className={button} disabled={isDeploying}>
+            {isDeploying ? (
+              <div className={loadingWrapper}>
+                <Lottie animationData={loadingAnimation} />
+              </div>
+            ) : (
+              en.deployer.form.submitButtonTitle
+            )}
           </button>
           <button type="button" className={button} onClick={handleGoToHome}>
             {en.common.back}

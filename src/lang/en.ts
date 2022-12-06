@@ -68,7 +68,6 @@ export const en = {
       },
     },
     next: 'Next',
-    minting: 'Minting...',
     mint: 'Mint',
     success: {
       title: 'Successfully minted your NFT!',

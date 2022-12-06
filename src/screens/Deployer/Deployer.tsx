@@ -6,6 +6,7 @@ import { en } from '../../lang';
 import { Success } from './Steps/Success';
 import { Fields } from './Steps/Fields/Fields';
 import { showToast } from '../../utils/showToast';
+import { capitalize } from '../../utils/capitalize';
 import MintedArtifact from '../../../artifacts/contracts/Minted.sol/Minted.json';
 
 type MetaMaskError = {
@@ -17,17 +18,20 @@ export type DeployerStep = 'fields' | 'success';
 
 export function Deployer() {
   const { address } = useAccount();
-  const { data: signer, isLoading } = useSigner();
+  const { data: signer } = useSigner();
 
   const [name, setName] = useState('Minted');
   const [symbol, setSymbol] = useState('MINT');
   const [step, setStep] = useState<DeployerStep>('fields');
   const [deployedContractAddress, setDeployedContractAddress] = useState('');
+  const [isDeploying, setIsDeploying] = useState(false);
 
   async function handleDeploy() {
     if (!address || !signer) {
       return showToast(en.common.connectMetaMask, '🦊');
     }
+
+    setIsDeploying(true);
 
     try {
       const factory = new ethers.ContractFactory(
@@ -42,9 +46,12 @@ export function Deployer() {
       setStep('success');
     } catch (error) {
       showToast(
-        (error as MetaMaskError)?.reason || en.deployer.toast.errorDeploying,
+        capitalize((error as MetaMaskError)?.reason) ||
+          en.deployer.toast.errorDeploying,
         '🚨'
       );
+    } finally {
+      setIsDeploying(false);
     }
   }
 
@@ -55,7 +62,7 @@ export function Deployer() {
         setName={setName}
         symbol={symbol}
         setSymbol={setSymbol}
-        isLoading={isLoading}
+        isDeploying={isDeploying}
         handleDeploy={handleDeploy}
       />
     );
