@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Root from './App';
-import './index.css';
 
 import { Welcome } from './screens/Welcome';
 import { Deployer } from './screens/Deployer';

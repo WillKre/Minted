@@ -79,7 +79,7 @@ export function Image({
             label={en.minter.form.contract.label}
             action={{
               label: useCustomAddress
-                ? 'Use default "Minted" contract'
+                ? 'Switch to Minted contract'
                 : 'Switch to custom contract',
               onClick: switchUseCustomAddress,
             }}
