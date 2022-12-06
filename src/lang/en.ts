@@ -36,7 +36,7 @@ export const en = {
         label: 'Symbol',
         placeholder: 'e.g. MINT',
       },
-      info: 'Note: Name & Symbol customisation is coming soon!',
+      info: 'Name & Symbol customisation is coming soon!',
       submitButtonTitle: 'Deploy',
     },
     success: {

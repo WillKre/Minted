@@ -79,8 +79,8 @@ export function Image({
             label={en.minter.form.contract.label}
             action={{
               label: useCustomAddress
-                ? '- Use default Minted contract'
-                : '- Switch to custom contract',
+                ? 'Use default "Minted" contract'
+                : 'Switch to custom contract',
               onClick: switchUseCustomAddress,
             }}
           />
@@ -92,7 +92,7 @@ export function Image({
               label={en.minter.form.link.label}
               placeholder={en.minter.form.link.placeholder}
               action={{
-                label: '- Switch to image upload',
+                label: 'Switch to image upload',
                 onClick: switchImageType,
               }}
             />
@@ -100,7 +100,7 @@ export function Image({
             <ImageSelect
               onChange={handleSelectImageSuccess}
               action={{
-                label: '- Switch to URI input',
+                label: 'Switch to URI input',
                 onClick: switchImageType,
               }}
             />

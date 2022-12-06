@@ -42,13 +42,15 @@ export const button = style({
 
 export const labelActionButton = style({
   border: 'none',
+  color: '#f5f5f5',
   marginLeft: '12px',
   marginBottom: '6px',
-  fontStyle: 'italic',
-  background: 'transparent',
+  borderRadius: '0.5rem',
+  padding: '0.25rem 0.5rem',
+  background: 'rgba(0, 0, 0, 0.2)',
   ':hover': {
-    color: '#CCC',
     cursor: 'pointer',
+    background: 'rgba(0, 0, 0, 0.5)',
   },
 });
 
