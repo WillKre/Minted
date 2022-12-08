@@ -1,4 +1,5 @@
 import { Dispatch, FormEvent, SetStateAction, useState } from 'react';
+import { useAccount } from 'wagmi';
 import { useNavigate } from 'react-router-dom';
 
 import { en } from '../../../../lang';
@@ -30,6 +31,7 @@ export function Image({
   isContractWriteValid,
   handleSelectImageSuccess,
 }: ImageProps) {
+  const { address } = useAccount();
   const navigate = useNavigate();
 
   const [imgHasError, setImgHasError] = useState(false);
@@ -38,6 +40,10 @@ export function Image({
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (!address) {
+      return showToast(en.common.connectMetaMask, '🦊');
+    }
 
     if (!isContractWriteValid) {
       return showToast(en.minter.toast.invalidContractAddress, '🚨');

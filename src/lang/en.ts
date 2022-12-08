@@ -79,6 +79,7 @@ export const en = {
       invalidContractAddress: 'Invalid contract address',
       errorPreparing:
         'An error occurred while preparing your transaction. Please check your contract address.',
+      errorPinning: 'An error occurred while pinning JSON to IPFS',
       errorMinting: 'An error occurred while attempting to mint your NFT',
       uploadingImage: 'Uploading your image to IPFS...',
       uploadedImage: 'Successfully uploaded your image',

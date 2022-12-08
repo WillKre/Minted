@@ -3,18 +3,21 @@ import busboy from 'busboy';
 import FormData from 'form-data';
 import { Handler } from '@netlify/functions';
 
-const VITE_PINATA_API_KEY = process.env.VITE_PINATA_API_KEY;
-const VITE_PINATA_API_SECRET = process.env.VITE_PINATA_API_SECRET;
+const { VITE_PINATA_API_KEY, VITE_PINATA_API_SECRET } = process.env;
 
-type File = {
-  filename: string;
-  type: string;
-  content: Buffer;
+type Fields = {
+  file: {
+    filename: string;
+    type: string;
+    content: Buffer;
+  }[];
 };
 
-function parseMultipartForm(event): Promise<{} | File> {
+function parseMultipartForm(event): Promise<Fields> {
   return new Promise((resolve) => {
-    const fields = {};
+    const fields = {
+      file: [],
+    };
     const bb = busboy({ headers: event.headers });
 
     bb.on('file', (name, file, info) => {
@@ -42,18 +45,23 @@ function parseMultipartForm(event): Promise<{} | File> {
 export const handler: Handler = async (event) => {
   try {
     const fields = await parseMultipartForm(event);
+
+    if (!fields) {
+      throw new Error('Unable to parse image');
+    }
+
     const file = fields.file[0];
 
     const formData = new FormData();
     formData.append('file', file.content, { filepath: file.filename });
 
-    const metadata = JSON.stringify({ name: 'File name' });
+    const metadata = JSON.stringify({ name: file.filename });
     formData.append('pinataMetadata', metadata);
 
     const options = JSON.stringify({ cidVersion: 0 });
     formData.append('pinataOptions', options);
 
-    const res = await axios({
+    const { data } = await axios({
       method: 'post',
       url: 'https://api.pinata.cloud/pinning/pinFileToIPFS',
       headers: {
@@ -64,16 +72,14 @@ export const handler: Handler = async (event) => {
       data: formData,
     });
 
-    console.log('res.data', res.data);
-
     return {
       statusCode: 200,
-      body: JSON.stringify(res.data),
+      body: JSON.stringify(data),
     };
-  } catch (err) {
+  } catch (error) {
     return {
-      statusCode: 404,
-      body: err.toString(),
+      statusCode: 400,
+      body: error.toString(),
     };
   }
 };
