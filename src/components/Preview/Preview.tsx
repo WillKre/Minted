@@ -14,7 +14,7 @@ type PreviewProps = {
 };
 
 export function Preview({ src, onImgLoad, onImgError }: PreviewProps) {
-  const [imgSrc, setImgSrc] = useState<string | undefined>(src);
+  const [imgSrc, setImgSrc] = useState<string>(src);
 
   useEffect(() => {
     setImgSrc(src);
