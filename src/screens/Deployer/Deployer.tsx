@@ -7,6 +7,7 @@ import { Success } from './Steps/Success';
 import { Fields } from './Steps/Fields/Fields';
 import { showToast } from '../../utils/showToast';
 import { capitalize } from '../../utils/capitalize';
+import { useIsSupportedNetwork } from '../../hooks/useIsSupportedNetwork';
 import MintedArtifact from '../../../artifacts/contracts/Minted.sol/Minted.json';
 
 type MetaMaskError = {
@@ -19,6 +20,7 @@ export type DeployerStep = 'fields' | 'success';
 export function Deployer() {
   const { address } = useAccount();
   const { data: signer } = useSigner();
+  const { isSupportedNetwork } = useIsSupportedNetwork();
 
   const [name, setName] = useState('Minted');
   const [symbol, setSymbol] = useState('MINT');
@@ -29,6 +31,10 @@ export function Deployer() {
   async function handleDeploy() {
     if (!address || !signer) {
       return showToast(en.common.connectMetaMask, '🦊');
+    }
+
+    if (!isSupportedNetwork) {
+      return showToast(en.common.unsupportedNetwork, '🚨');
     }
 
     setIsDeploying(true);

@@ -7,5 +7,5 @@ export const container = style({
   padding: '2rem',
   marginTop: '0.5rem',
   borderRadius: '0.5rem',
-  background: 'linear-gradient(to right, #8e2de2, #4a00e0);',
+  background: 'linear-gradient(to right, #8e2de2, #4a00e0)',
 });

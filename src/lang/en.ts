@@ -12,6 +12,7 @@ export const en = {
     gitHubLogoAlt: 'GitHub logo',
     metaMaskLogoAlt: 'Metamask logo',
     connectMetaMask: 'Please connect to MetaMask',
+    unsupportedNetwork: 'Please connect your wallet to a supported network',
     dragNDrop: "Drag 'n' drop an image or click here to upload to IPFS",
   },
   errorPage: {

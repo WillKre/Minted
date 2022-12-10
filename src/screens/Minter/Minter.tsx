@@ -17,6 +17,7 @@ import { capitalize } from '../../utils/capitalize';
 import { pinJSONToIPFS } from '../../utils/pinJsonToIpfs';
 import { pinFileToIPFS } from '../../utils/pinFileToIpfs';
 import MintedArtifact from '../../../artifacts/contracts/Minted.sol/Minted.json';
+import { useIsSupportedNetwork } from '../../hooks/useIsSupportedNetwork';
 
 const { VITE_CONTRACT_ADDRESS } = import.meta.env;
 
@@ -27,6 +28,7 @@ type WagmiError = Error & { reason?: string };
 export function Minter() {
   const { state } = useLocation();
   const { address } = useAccount();
+  const { isSupportedNetwork } = useIsSupportedNetwork();
 
   const [step, setStep] = useState<MinterStep>('image');
   const [imageUri, setImageUri] = useState('');
@@ -86,6 +88,10 @@ export function Minter() {
   async function handleMint() {
     if (!address) {
       return showToast(en.common.connectMetaMask, '🦊');
+    }
+
+    if (!isSupportedNetwork) {
+      return showToast(en.common.unsupportedNetwork, '🚨');
     }
 
     const { pinataUrl } = await pinJSONToIPFS({
