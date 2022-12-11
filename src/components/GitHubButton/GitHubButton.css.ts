@@ -11,9 +11,9 @@ export const button = style({
   alignItems: 'center',
   position: 'absolute',
   borderRadius: '0.5rem',
-  backgroundImage: 'linear-gradient(rgb(32, 39, 56) 0px, rgb(7, 8, 22) 100%)',
+  background: 'linear-gradient(rgb(32, 39, 56) 0px, rgb(7, 8, 22) 100%)',
   ':hover': {
-    backgroundImage: 'linear-gradient(rgb(32, 39, 56) 0px, rgb(7, 8, 70) 100%)',
+    background: 'linear-gradient(rgb(32, 39, 56) 0px, rgb(7, 8, 70) 100%)',
   },
 });
 

@@ -3,9 +3,17 @@ import { style } from '@vanilla-extract/css';
 export const container = style({
   width: '320px',
   height: '500px',
-  margin: 'auto',
   padding: '2rem',
-  marginTop: '0.5rem',
   borderRadius: '0.5rem',
+  margin: '0 auto 6rem auto',
   background: 'linear-gradient(to right, #8e2de2, #4a00e0)',
+
+  '@media': {
+    'screen and (max-width: 425px)': {
+      width: '300px',
+    },
+    'screen and (max-width: 375px)': {
+      width: '260px',
+    },
+  },
 });

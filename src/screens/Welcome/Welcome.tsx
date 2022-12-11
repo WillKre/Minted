@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { en } from '../../lang';
 import { Button } from './Button';
 import { text } from '../../App.css';
-import { buttons, title } from './Welcome.css';
+import { container, buttons, title } from './Welcome.css';
 
 export function Welcome() {
   const navigate = useNavigate();
@@ -17,9 +17,11 @@ export function Welcome() {
   }
 
   return (
-    <section>
-      <h1 className={title}>{en.welcome.title}</h1>
-      <p className={text}>{en.welcome.subtitle}</p>
+    <section className={container}>
+      <div>
+        <h1 className={title}>{en.welcome.title}</h1>
+        <p className={text}>{en.welcome.subtitle}</p>
+      </div>
 
       <div className={buttons}>
         <Button

@@ -4,6 +4,7 @@ export const en = {
     back: 'Back',
     home: 'Home',
     image: 'Image',
+    minted: 'Minted',
     preview: 'Preview',
     connect: 'Connect',
     contract: 'Contract',

@@ -16,10 +16,8 @@ import { showToast } from '../../utils/showToast';
 import { capitalize } from '../../utils/capitalize';
 import { pinJSONToIPFS } from '../../utils/pinJsonToIpfs';
 import { pinFileToIPFS } from '../../utils/pinFileToIpfs';
-import MintedArtifact from '../../../artifacts/contracts/Minted.sol/Minted.json';
 import { useIsSupportedNetwork } from '../../hooks/useIsSupportedNetwork';
-
-const { VITE_CONTRACT_ADDRESS } = import.meta.env;
+import MintedArtifact from '../../../artifacts/contracts/Minted.sol/Minted.json';
 
 export type MinterStep = 'image' | 'fields' | 'success';
 
@@ -36,7 +34,7 @@ export function Minter() {
   const [description, setDescription] = useState('');
   const [isContractWriteValid, setIsContractWriteValid] = useState(false);
   const initialContractAddress: string =
-    state?.contractAddress || VITE_CONTRACT_ADDRESS;
+    state?.contractAddress || import.meta.env.VITE_CONTRACT_ADDRESS;
   const [contractAddress, setContractAddress] = useState<string>(
     initialContractAddress
   );
@@ -102,9 +100,7 @@ export function Minter() {
     });
 
     if (pinataUrl) {
-      write?.({
-        recklesslySetUnpreparedArgs: [address, pinataUrl],
-      });
+      write?.({ recklesslySetUnpreparedArgs: [address, pinataUrl] });
     }
   }
 

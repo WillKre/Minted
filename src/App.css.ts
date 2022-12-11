@@ -1,4 +1,4 @@
-import { createGlobalTheme, globalStyle, style } from '@vanilla-extract/css';
+import { globalStyle, style } from '@vanilla-extract/css';
 
 globalStyle('*', {
   margin: 0,
@@ -6,26 +6,17 @@ globalStyle('*', {
 });
 
 globalStyle(':root', {
-  height: '100%',
   fontFamily: "'Poppins', sans-serif",
 
   minHeight: '100%',
   color: '#f5f5f5',
   background: 'linear-gradient(180deg, #202738 0, #070816 100%)',
-  backgroundImage: 'linear-gradient(rgb(32, 39, 56) 0px, rgb(7, 8, 22) 100%)',
 
   fontSynthesis: 'none',
   textRendering: 'optimizeLegibility',
   WebkitFontSmoothing: 'antialiased',
   MozOsxFontSmoothing: 'grayscale',
   WebkitTextSizeAdjust: '100%',
-});
-
-createGlobalTheme(':root', {
-  height: '100%',
-  font: {
-    body: "'Poppins', sans-serif",
-  },
 });
 
 export const section = style({
