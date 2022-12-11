@@ -8,7 +8,7 @@ export const button = style({
 });
 
 export const buttonContent = style({
-  height: 100,
+  height: '5rem',
   color: '#FFF',
   display: 'flex',
   alignItems: 'center',
@@ -22,12 +22,12 @@ export const buttonContent = style({
 });
 
 export const topText = style({
-  fontSize: '1.25rem',
+  fontSize: '1rem',
   fontWeight: 'bold',
 });
 
 export const bottomText = style({
   color: '#ccc',
-  marginTop: '1rem',
+  marginTop: '0.5rem',
   fontSize: '0.875rem',
 });

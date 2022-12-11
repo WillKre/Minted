@@ -32,8 +32,6 @@ export default function App() {
       <GitHubButton />
       <MetaMaskConnectButton />
 
-      <Header />
-
       <View>
         <Outlet />
       </View>

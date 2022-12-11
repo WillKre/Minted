@@ -13,8 +13,8 @@ export const title = style({
 });
 
 export const lottie = style({
-  width: '10rem',
-  height: '10rem',
+  width: '8rem',
+  height: '8rem',
   margin: '0 auto',
 });
 

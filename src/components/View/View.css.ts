@@ -5,7 +5,7 @@ export const container = style({
   height: '500px',
   padding: '2rem',
   borderRadius: '0.5rem',
-  margin: '0 auto 6rem auto',
+  margin: '6rem auto 6rem auto',
   background: 'linear-gradient(to right, #8e2de2, #4a00e0)',
 
   '@media': {

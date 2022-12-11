@@ -21,8 +21,7 @@ export const en = {
     subtitle: 'Sorry, an unexpected error has occurred.',
   },
   welcome: {
-    title: 'Welcome!',
-    subtitle: 'To get started, select one of the following options:',
+    subtitle: 'Welcome! To get started, select one of the following options:',
     deployButtonTitle: 'Deploy',
     deployButtonSubtitle: 'your own NFT contract',
     mintButtonTitle: 'Mint',
