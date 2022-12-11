@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom';
+import Lottie from 'lottie-react';
 
 import { en } from '../../lang';
 import { Button } from './Button';
 import { text } from '../../App.css';
-import { container, buttons, title } from './Welcome.css';
+import blockchainAnimation from '../../assets/blockchain.json';
+import { container, buttons, lottie, title } from './Welcome.css';
 
 export function Welcome() {
   const navigate = useNavigate();
@@ -22,6 +24,8 @@ export function Welcome() {
         <h1 className={title}>{en.welcome.title}</h1>
         <p className={text}>{en.welcome.subtitle}</p>
       </div>
+
+      <Lottie className={lottie} animationData={blockchainAnimation} />
 
       <div className={buttons}>
         <Button

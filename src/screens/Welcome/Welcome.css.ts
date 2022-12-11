@@ -12,6 +12,12 @@ export const title = style({
   marginBottom: '1rem',
 });
 
+export const lottie = style({
+  width: '10rem',
+  height: '10rem',
+  margin: '0 auto',
+});
+
 export const buttons = style({
   display: 'flex',
   flexDirection: 'column',
