@@ -46,6 +46,7 @@ export function Minter() {
     address: contractAddress,
     onSuccess: () => {
       setIsContractWriteValid(true);
+      showToast(en.minter.toast.minted, '✅');
     },
     onError: (error: WagmiError) => {
       setIsContractWriteValid(false);
@@ -91,6 +92,8 @@ export function Minter() {
     if (!isSupportedNetwork) {
       return showToast(en.common.unsupportedNetwork, '🚨');
     }
+
+    showToast(en.minter.toast.minting, '🧪');
 
     const { pinataUrl } = await pinJSONToIPFS({
       name,

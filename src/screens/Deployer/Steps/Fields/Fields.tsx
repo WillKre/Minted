@@ -4,8 +4,8 @@ import Lottie from 'lottie-react';
 
 import blocks from '../blocks.png';
 import { en } from '../../../../lang';
+import { TextInput } from '../../../../components/TextInput';
 import loadingAnimation from '../../../../assets/loading.json';
-import { TextInput } from '../../../../components/TextInput/TextInput';
 import {
   form,
   text,

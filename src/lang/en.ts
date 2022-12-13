@@ -47,6 +47,8 @@ export const en = {
       imgAlt: 'Blockchain',
     },
     toast: {
+      deployingContract: 'Deploying contract...',
+      successDeploying: 'Successfully deployed contract',
       errorDeploying: 'Error deploying contract',
     },
   },
@@ -77,6 +79,8 @@ export const en = {
       imgAlt: 'The minted NFT',
     },
     toast: {
+      minting: 'Minting your NFT...',
+      minted: 'Successfully minted your NFT',
       invalidContractAddress: 'Invalid contract address',
       errorPreparing:
         'An error occurred while preparing your transaction. Please check your contract address.',

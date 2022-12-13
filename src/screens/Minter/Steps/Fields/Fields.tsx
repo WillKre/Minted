@@ -3,8 +3,8 @@ import Lottie from 'lottie-react';
 
 import { en } from '../../../../lang';
 import { MinterStep } from '../../Minter';
+import { TextInput } from '../../../../components/TextInput';
 import loadingAnimation from '../../../../assets/loading.json';
-import { TextInput } from '../../../../components/TextInput/TextInput';
 import { form, section, button, loadingWrapper } from '../../../../App.css';
 
 type FieldsProps = {

@@ -7,8 +7,8 @@ import { MinterStep } from '../../Minter';
 import { showToast } from '../../../../utils/showToast';
 import { Preview } from '../../../../components/Preview';
 import { form, section, button } from '../../../../App.css';
+import { TextInput } from '../../../../components/TextInput';
 import { ImageSelect } from '../../../../components/ImageSelect';
-import { TextInput } from '../../../../components/TextInput/TextInput';
 
 type ImageProps = {
   imageUri: string;

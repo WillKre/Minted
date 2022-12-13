@@ -11,7 +11,6 @@ import { publicProvider } from 'wagmi/providers/public';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 
 import { View } from './components/View';
-import { Header } from './components/Header';
 import { GitHubButton } from './components/GitHubButton';
 import { MetaMaskConnectButton } from './components/MetaMaskConnectButton';
 
