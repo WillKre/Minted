@@ -46,7 +46,6 @@ export function Minter() {
     address: contractAddress,
     onSuccess: () => {
       setIsContractWriteValid(true);
-      showToast(en.minter.toast.minted, '✅');
     },
     onError: (error: WagmiError) => {
       setIsContractWriteValid(false);
@@ -59,7 +58,10 @@ export function Minter() {
   const { data, write } = useContractWrite(config);
   const { isLoading } = useWaitForTransaction({
     hash: data?.hash,
-    onSuccess: () => setStep('success'),
+    onSuccess: () => {
+      showToast(en.minter.toast.minted, '✅');
+      setStep('success');
+    },
     onError: (error: WagmiError) => {
       setIsContractWriteValid(false);
       showToast(
