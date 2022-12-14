@@ -79,7 +79,8 @@ export const en = {
       imgAlt: 'The minted NFT',
     },
     toast: {
-      minting: 'Minting your NFT...',
+      pinnedMetaData:
+        'Successfully pinned your metadata to IPFS, preparing transaction...',
       minted: 'Successfully minted your NFT',
       invalidContractAddress: 'Invalid contract address',
       errorPreparing:

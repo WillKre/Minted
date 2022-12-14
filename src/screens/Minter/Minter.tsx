@@ -95,14 +95,14 @@ export function Minter() {
       return showToast(en.common.unsupportedNetwork, '🚨');
     }
 
-    showToast(en.minter.toast.minting, '🧪');
-
     const { pinataUrl } = await pinJSONToIPFS({
       name,
       description,
       image: imageUri,
       attributes: [],
     });
+
+    showToast(en.minter.toast.pinnedMetaData, '🧪');
 
     if (pinataUrl) {
       write?.({ recklesslySetUnpreparedArgs: [address, pinataUrl] });

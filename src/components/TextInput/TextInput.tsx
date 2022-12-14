@@ -52,6 +52,7 @@ export function TextInput({
         type="text"
         value={value}
         className={input}
+        autoComplete="off"
         disabled={disabled}
         autoFocus={autoFocus}
         placeholder={placeholder}

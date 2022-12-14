@@ -40,14 +40,14 @@ export function Deployer() {
     setIsDeploying(true);
 
     try {
-      showToast(en.deployer.toast.deployingContract, '🚀');
-
       const factory = new ethers.ContractFactory(
         MintedArtifact.abi,
         MintedArtifact.bytecode,
         signer
       );
+
       const contract = await factory.deploy();
+      showToast(en.deployer.toast.deployingContract, '🚀');
       const receipt = await contract.deployTransaction.wait();
 
       showToast(en.deployer.toast.successDeploying, '✅');
