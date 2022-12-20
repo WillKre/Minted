@@ -4,11 +4,11 @@ import Lottie from 'lottie-react';
 import { en } from '../../lang';
 import { Button } from './Button';
 import { text } from '../../App.css';
-import blockchainAnimation from '../../assets/blockchain.json';
-import { container, buttons, lottie, title } from './Welcome.css';
 import { Header } from '../../components/Header';
+import { container, buttons, lottie } from './Home.css';
+import blockchainAnimation from '../../assets/blockchain.json';
 
-export function Welcome() {
+export function Home() {
   const navigate = useNavigate();
 
   function handleGoToDeploy() {
