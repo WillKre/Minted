@@ -14,10 +14,11 @@ import { Fields } from './Steps/Fields';
 import { Success } from './Steps/Success';
 import { showToast } from '../../utils/showToast';
 import { capitalize } from '../../utils/capitalize';
-import { pinJSONToIPFS } from '../../utils/pinJsonToIpfs';
-import { pinFileToIPFS } from '../../utils/pinFileToIpfs';
+import { pinJsonToIpfs } from '../../utils/pinJsonToIpfs';
+import { pinFileToIpfs } from '../../utils/pinFileToIpfs';
 import { useIsSupportedNetwork } from '../../hooks/useIsSupportedNetwork';
 import MintedArtifact from '../../../artifacts/contracts/Minted.sol/Minted.json';
+import { appendFileToForm } from '../../utils/appendFileToForm';
 
 export type MinterStep = 'image' | 'fields' | 'success';
 
@@ -82,7 +83,7 @@ export function Minter() {
   }
 
   async function handleSelectImageSuccess(image: File) {
-    const { pinataUrl } = await pinFileToIPFS(image);
+    const { pinataUrl } = await pinFileToIpfs(appendFileToForm(image));
     setImageUri(pinataUrl);
   }
 
@@ -95,7 +96,7 @@ export function Minter() {
       return showToast(en.common.unsupportedNetwork, '🚨');
     }
 
-    const { pinataUrl } = await pinJSONToIPFS({
+    const { pinataUrl } = await pinJsonToIpfs({
       name,
       description,
       image: imageUri,

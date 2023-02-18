@@ -13,12 +13,10 @@ type ERC721MetaDataStandard = {
   }[];
 };
 
-export async function pinJSONToIPFS(jsonBody: ERC721MetaDataStandard) {
+export async function pinJsonToIpfs(jsonBody: ERC721MetaDataStandard) {
   try {
-    const { data } = await axios({
-      method: 'post',
+    const { data } = await axios.post('/.netlify/functions/pinJsonToIpfs', {
       data: jsonBody,
-      url: `/.netlify/functions/pinJsonToIpfs`,
     });
 
     return {

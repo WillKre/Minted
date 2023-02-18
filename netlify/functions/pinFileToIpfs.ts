@@ -1,17 +1,10 @@
+const { VITE_PINATA_API_KEY, VITE_PINATA_API_SECRET } = process.env;
 import axios from 'axios';
 import busboy from 'busboy';
 import FormData from 'form-data';
 import { Handler } from '@netlify/functions';
 
-const { VITE_PINATA_API_KEY, VITE_PINATA_API_SECRET } = process.env;
-
-type Fields = {
-  file: {
-    filename: string;
-    type: string;
-    content: Buffer;
-  }[];
-};
+type Fields = { file: { filename: string; type: string; content: Buffer }[] };
 
 function parseMultipartForm(event): Promise<Fields> {
   return new Promise((resolve) => {
@@ -25,12 +18,7 @@ function parseMultipartForm(event): Promise<Fields> {
 
       file.on('data', (data) => {
         if (!fields[name]) fields[name] = [];
-
-        fields[name].push({
-          filename,
-          type: mimeType,
-          content: data,
-        });
+        fields[name].push({ filename, type: mimeType, content: data });
       });
     });
 
@@ -45,27 +33,24 @@ function parseMultipartForm(event): Promise<Fields> {
 export const handler: Handler = async (event) => {
   try {
     const fields = await parseMultipartForm(event);
+    const file = fields.file[0];
 
-    if (!fields) {
+    if (!fields || !file) {
       throw new Error('Unable to parse image');
     }
 
-    const file = fields.file[0];
-
     const formData = new FormData();
-    formData.append('file', file.content, { filepath: file.filename });
-
     const metadata = JSON.stringify({ name: file.filename });
-    formData.append('pinataMetadata', metadata);
-
     const options = JSON.stringify({ cidVersion: 0 });
+    formData.append('file', file.content, { filepath: file.filename });
+    formData.append('pinataMetadata', metadata);
     formData.append('pinataOptions', options);
 
     const { data } = await axios({
       method: 'post',
       url: 'https://api.pinata.cloud/pinning/pinFileToIPFS',
       headers: {
-        'Content-Type': `multipart/form-data;`,
+        'Content-Type': 'multipart/form-data;',
         pinata_api_key: VITE_PINATA_API_KEY,
         pinata_secret_api_key: VITE_PINATA_API_SECRET,
       },
