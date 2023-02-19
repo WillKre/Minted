@@ -16,7 +16,7 @@ import { showToast } from '../../utils/showToast';
 import { labelActionButton } from '../../App.css';
 
 type ImageSelectProps = {
-  action?: {
+  action: {
     label: string;
     onClick: () => void;
   };
@@ -61,15 +61,13 @@ export function ImageSelect({ action, onChange }: ImageSelectProps) {
     <div className={container}>
       <div className={labelAndAction}>
         <label className={label}>{en.common.image}</label>
-        {action && (
-          <button
-            type="button"
-            onClick={action.onClick}
-            className={labelActionButton}
-          >
-            {action.label}
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={action.onClick}
+          className={labelActionButton}
+        >
+          {action.label}
+        </button>
       </div>
 
       <div {...getRootProps({ style })}>

@@ -1,6 +1,7 @@
 import { Component, ReactNode } from 'react';
 
 import { Error } from '../screens/Error';
+import { Wagmi } from './wagmi';
 
 type ErrorBoundaryProps = {
   children: ReactNode;
@@ -25,7 +26,11 @@ export class ErrorBoundary extends Component<
 
   render() {
     if (this.state.hasError) {
-      return <Error />;
+      return (
+        <Wagmi>
+          <Error />
+        </Wagmi>
+      );
     }
 
     return this.props.children;

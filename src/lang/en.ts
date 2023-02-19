@@ -10,15 +10,14 @@ export const en = {
     contract: 'Contract',
     blockchain: 'Blockchain',
     transaction: 'Transaction',
-    gitHubLogoAlt: 'GitHub logo',
-    metaMaskLogoAlt: 'Metamask logo',
+    gitHubLogoAlt: 'GitHub octocat',
+    metaMaskLogoAlt: 'Metamask fox',
     connectMetaMask: 'Please connect to MetaMask',
     unsupportedNetwork: 'Please connect your wallet to a supported network',
     dragNDrop: "Drag 'n' drop an image or click here to upload to IPFS",
   },
   errorPage: {
-    title: 'Oops!',
-    subtitle: 'Sorry, an unexpected error has occurred.',
+    page404: "We can't seem to find the page you're looking for!",
   },
   welcome: {
     subtitle: 'Welcome! To get started, select one of the following options:',

@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 import { Banner } from '../Banner';
-import { container } from './View.css';
+import { container } from '../../App.css';
 import { useIsSupportedNetwork } from '../../hooks/useIsSupportedNetwork';
 
 type ViewProps = {

@@ -1,13 +1,14 @@
 import { useRouteError } from 'react-router-dom';
 
 import { en } from '../../lang';
-import { View } from '../../components/View';
 import { Header } from '../../components/Header';
 import { GitHubButton } from '../../components/GitHubButton';
+import { container } from '../../App.css';
 
 type RouteError = {
   statusText?: string;
   message?: string;
+  status?: number;
 };
 
 export function Error() {
@@ -17,14 +18,17 @@ export function Error() {
     <>
       <GitHubButton />
 
-      <Header />
+      <div className={container}>
+        <Header />
 
-      <View>
-        <h1>{en.errorPage.title}</h1>
-        <p>
-          <i>{error.statusText || error.message}</i> - {en.errorPage.subtitle}
-        </p>
-      </View>
+        {error.status === 404 ? (
+          <p>{en.errorPage.page404}</p>
+        ) : (
+          <p>{error.statusText || error.message}</p>
+        )}
+
+        {error.status && <b>Error code: {error.status}</b>}
+      </div>
     </>
   );
 }
