@@ -8,7 +8,7 @@ globalStyle('*', {
 globalStyle(':root', {
   fontFamily: "'Poppins', sans-serif",
 
-  minHeight: '100%',
+  minHeight: '100vh',
   color: '#f5f5f5',
   background: 'linear-gradient(180deg, #202738 0, #070816 100%)',
 
@@ -24,7 +24,7 @@ export const container = style({
   height: '500px',
   padding: '2rem',
   borderRadius: '0.5rem',
-  margin: '6rem auto 6rem auto',
+  margin: '2rem auto 2rem auto',
   background: 'linear-gradient(to right, #8e2de2, #4a00e0)',
 
   '@media': {
@@ -66,9 +66,12 @@ export const button = style({
   height: '3rem',
   cursor: 'pointer',
   marginTop: '0.5rem',
+  fontSize: '0.875rem',
   borderRadius: '0.5rem',
+  transition: 'transform 0.125s ease',
   backgroundImage: 'linear-gradient(rgb(32, 39, 56) 0px, rgb(7, 8, 22) 100%)',
   ':hover': {
+    transform: 'scale(1.025)',
     backgroundImage: 'linear-gradient(rgb(32, 39, 56) 0px, rgb(7, 8, 70) 100%)',
   },
   ':disabled': {

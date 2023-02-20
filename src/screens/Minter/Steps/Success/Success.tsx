@@ -14,17 +14,28 @@ type SuccessProps = {
     hash: string;
   };
   imageUri: string;
-  resetForm: () => void;
+  setName: Dispatch<SetStateAction<string>>;
+  setDescription: Dispatch<SetStateAction<string>>;
+  setImageUri: Dispatch<SetStateAction<string>>;
   setStep: Dispatch<SetStateAction<MinterStep>>;
 };
 
-export function Success({ data, imageUri, setStep, resetForm }: SuccessProps) {
+export function Success({
+  data,
+  setStep,
+  setName,
+  imageUri,
+  setImageUri,
+  setDescription,
+}: SuccessProps) {
   const { chain } = useNetwork();
   const navigate = useNavigate();
 
   function handleResetScreen() {
     setStep('image');
-    resetForm();
+    setName('');
+    setDescription('');
+    setImageUri('');
   }
 
   function handleGoToHome() {

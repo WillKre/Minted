@@ -1,16 +1,16 @@
-import { Toaster } from 'react-hot-toast';
 import { Outlet } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 import { Providers } from './providers';
 import { View } from './components/View';
 import { GitHubButton } from './components/GitHubButton';
-import { MetaMaskConnectButton } from './components/MetaMaskConnectButton';
+import { RainbowButton } from './components/RainbowButton';
 
 export default function App() {
   return (
     <Providers>
       <GitHubButton />
-      <MetaMaskConnectButton />
+      <RainbowButton />
 
       <View>
         <Outlet />

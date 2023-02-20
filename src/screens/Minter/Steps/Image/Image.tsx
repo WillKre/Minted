@@ -17,7 +17,6 @@ type ImageProps = {
   setStep: Dispatch<SetStateAction<MinterStep>>;
   setImageUri: Dispatch<SetStateAction<string>>;
   setContractAddress: Dispatch<SetStateAction<string>>;
-  resetAddress: () => void;
   handleSelectImageSuccess: (image: File) => void;
 };
 
@@ -25,7 +24,6 @@ export function Image({
   setStep,
   imageUri,
   setImageUri,
-  resetAddress,
   contractAddress,
   setContractAddress,
   isContractWriteValid,
@@ -60,7 +58,7 @@ export function Image({
     setUseCustomAddress(!useCustomAddress);
 
     if (useCustomAddress) {
-      resetAddress();
+      setContractAddress(import.meta.env.VITE_CONTRACT_ADDRESS);
     }
   }
 

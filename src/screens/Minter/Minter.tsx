@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import {
   useAccount,
   useContractWrite,
@@ -14,11 +13,9 @@ import { Fields } from './Steps/Fields';
 import { Success } from './Steps/Success';
 import { showToast } from '../../utils/showToast';
 import { capitalize } from '../../utils/capitalize';
-import { pinJsonToIpfs } from '../../utils/pinJsonToIpfs';
 import { pinFileToIpfs } from '../../utils/pinFileToIpfs';
-import { useIsSupportedNetwork } from '../../hooks/useIsSupportedNetwork';
-import MintedArtifact from '../../../artifacts/contracts/Minted.sol/Minted.json';
 import { appendFileToForm } from '../../utils/appendFileToForm';
+import MintedArtifact from '../../../artifacts/contracts/Minted.sol/Minted.json';
 
 export type MinterStep = 'image' | 'fields' | 'success';
 
@@ -27,10 +24,10 @@ type WagmiError = Error & { reason?: string };
 export function Minter() {
   const { state } = useLocation();
   const { address } = useAccount();
-  const { isSupportedNetwork } = useIsSupportedNetwork();
 
   const [step, setStep] = useState<MinterStep>('image');
   const [imageUri, setImageUri] = useState('');
+  const [jsonPinataUrl, setJsonPinataUrl] = useState<string>('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [isContractWriteValid, setIsContractWriteValid] = useState(false);
@@ -41,19 +38,14 @@ export function Minter() {
   );
 
   const { config } = usePrepareContractWrite({
-    args: [address, ''],
+    args: [address, jsonPinataUrl],
     abi: MintedArtifact.abi,
     functionName: 'mintNFT',
-    address: contractAddress,
-    onSuccess: () => {
-      setIsContractWriteValid(true);
-    },
+    address: contractAddress as `0x${string}`,
+    onSuccess: () => setIsContractWriteValid(true),
     onError: (error: WagmiError) => {
       setIsContractWriteValid(false);
-      showToast(
-        capitalize(error?.reason) || en.minter.toast.errorPreparing,
-        '🚨'
-      );
+      showToast(capitalize(error?.reason) || en.minter.toast.errorPreparing);
     },
   });
   const { data, write } = useContractWrite(config);
@@ -61,53 +53,18 @@ export function Minter() {
     hash: data?.hash,
     onSuccess: () => {
       showToast(en.minter.toast.minted, '✅');
+      setJsonPinataUrl('');
       setStep('success');
     },
     onError: (error: WagmiError) => {
       setIsContractWriteValid(false);
-      showToast(
-        capitalize(error?.reason) || en.minter.toast.errorMinting,
-        '🚨'
-      );
+      showToast(capitalize(error?.reason) || en.minter.toast.errorMinting);
     },
   });
-
-  function resetAddress() {
-    setContractAddress(initialContractAddress);
-  }
-
-  function resetForm() {
-    setImageUri('');
-    setName('');
-    setDescription('');
-  }
 
   async function handleSelectImageSuccess(image: File) {
     const { pinataUrl } = await pinFileToIpfs(appendFileToForm(image));
     setImageUri(pinataUrl);
-  }
-
-  async function handleMint() {
-    if (!address) {
-      return showToast(en.common.connectMetaMask, '🦊');
-    }
-
-    if (!isSupportedNetwork) {
-      return showToast(en.common.unsupportedNetwork, '🚨');
-    }
-
-    const { pinataUrl } = await pinJsonToIpfs({
-      name,
-      description,
-      image: imageUri,
-      attributes: [],
-    });
-
-    showToast(en.minter.toast.pinnedMetaData, '🧪');
-
-    if (pinataUrl) {
-      write?.({ recklesslySetUnpreparedArgs: [address, pinataUrl] });
-    }
   }
 
   if (step === 'image') {
@@ -116,7 +73,6 @@ export function Minter() {
         setStep={setStep}
         imageUri={imageUri}
         setImageUri={setImageUri}
-        resetAddress={resetAddress}
         contractAddress={contractAddress}
         setContractAddress={setContractAddress}
         isContractWriteValid={isContractWriteValid}
@@ -131,10 +87,12 @@ export function Minter() {
         name={name}
         setName={setName}
         setStep={setStep}
+        imageUri={imageUri}
         isMinting={isLoading}
-        handleMint={handleMint}
         description={description}
+        handleWrite={() => write?.()}
         setDescription={setDescription}
+        setJsonPinataUrl={setJsonPinataUrl}
       />
     );
   }
@@ -144,8 +102,10 @@ export function Minter() {
       <Success
         data={data}
         setStep={setStep}
+        setName={setName}
         imageUri={imageUri}
-        resetForm={resetForm}
+        setImageUri={setImageUri}
+        setDescription={setDescription}
       />
     );
   }

@@ -32,5 +32,5 @@ it('should return null if the request fails', async () => {
   expect(mockPost).toHaveBeenCalledWith('/.netlify/functions/pinJsonToIpfs', {
     data: jsonBody,
   });
-  expect(pinataUrl).toEqual(null);
+  expect(pinataUrl).toEqual('');
 });

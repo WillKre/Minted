@@ -3,13 +3,19 @@ import axios from 'axios';
 import { en } from '../lang';
 import { showToast } from './showToast';
 
-export async function pinFileToIpfs(form: FormData) {
+export async function pinFileToIpfs(formData: FormData) {
   try {
     showToast(en.minter.toast.uploadingImage, '🏞');
 
-    const { data } = await axios.post(`/.netlify/functions/pinFileToIpfs`, {
-      data: form,
-    });
+    const { data } = await axios.post(
+      '/.netlify/functions/pinFileToIpfs',
+      formData,
+      {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      }
+    );
 
     showToast(en.minter.toast.uploadedImage, '✅');
 

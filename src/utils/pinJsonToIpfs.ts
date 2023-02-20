@@ -29,7 +29,7 @@ export async function pinJsonToIpfs(jsonBody: ERC721MetaDataStandard) {
     );
 
     return {
-      pinataUrl: null,
+      pinataUrl: '',
     };
   }
 }

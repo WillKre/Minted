@@ -18,7 +18,7 @@ export const handler: Handler = async (event) => {
         pinata_secret_api_key: VITE_PINATA_API_SECRET,
       },
       data: {
-        pinataContent: JSON.parse(event.body),
+        pinataContent: JSON.parse(event.body).data,
         pinataOptions: { cidVersion: 1 },
       },
     });

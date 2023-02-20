@@ -8,7 +8,7 @@ type SentryProps = {
 
 export function Sentry({ children }: SentryProps) {
   SentryReact.init({
-    dsn: import.meta.env.SENTRY_DSN,
+    dsn: import.meta.env.VITE_SENTRY_DSN,
     environment: import.meta.env.MODE,
     integrations: [new BrowserTracing()],
     tracesSampleRate: 1.0,

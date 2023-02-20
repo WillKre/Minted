@@ -2,13 +2,13 @@ import { ReactNode } from 'react';
 
 import { Sentry } from './sentry';
 import { ErrorBoundary } from './error-boundary';
-import { Wagmi } from './wagmi';
+import { WagmiRainbow } from './wagmi-rainbow';
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <Sentry>
       <ErrorBoundary>
-        <Wagmi>{children}</Wagmi>
+        <WagmiRainbow>{children}</WagmiRainbow>
       </ErrorBoundary>
     </Sentry>
   );

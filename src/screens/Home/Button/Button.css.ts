@@ -8,15 +8,17 @@ export const button = style({
 });
 
 export const buttonContent = style({
-  height: '5rem',
   color: '#FFF',
+  height: '5rem',
   display: 'flex',
   alignItems: 'center',
   borderRadius: '0.5rem',
   flexDirection: 'column',
   justifyContent: 'center',
+  transition: 'transform 0.125s ease',
   background: 'linear-gradient(rgb(32, 39, 56) 0px, rgb(7, 8, 22) 100%)',
   ':hover': {
+    transform: 'scale(1.025)',
     background: 'linear-gradient(rgb(32, 39, 56) 0px, rgb(7, 8, 70) 100%)',
   },
 });

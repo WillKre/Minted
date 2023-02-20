@@ -14,10 +14,11 @@ export const en = {
     metaMaskLogoAlt: 'Metamask fox',
     connectMetaMask: 'Please connect to MetaMask',
     unsupportedNetwork: 'Please connect your wallet to a supported network',
-    dragNDrop: "Drag 'n' drop an image or click here to upload to IPFS",
+    dragNDrop: "Drag 'n' drop an image here to upload to IPFS",
   },
   errorPage: {
     page404: "We can't seem to find the page you're looking for!",
+    buttonText: 'Get me out of here!',
   },
   welcome: {
     subtitle: 'Welcome! To get started, select one of the following options:',
@@ -70,6 +71,7 @@ export const en = {
       },
     },
     next: 'Next',
+    pin: 'Pin',
     mint: 'Mint',
     success: {
       title: 'Successfully minted your NFT!',
@@ -78,8 +80,8 @@ export const en = {
       imgAlt: 'The minted NFT',
     },
     toast: {
-      pinnedMetaData:
-        'Successfully pinned your metadata to IPFS, preparing transaction...',
+      pinningMetaData: 'Pinning your metadata to IPFS...',
+      pinnedMetaData: 'Successfully pinned your metadata to IPFS',
       minted: 'Successfully minted your NFT',
       invalidContractAddress: 'Invalid contract address',
       errorPreparing:
