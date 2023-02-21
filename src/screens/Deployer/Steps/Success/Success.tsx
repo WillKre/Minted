@@ -5,7 +5,7 @@ import { useNetwork } from 'wagmi';
 import blocks from '../blocks.png';
 import { en } from '../../../../lang';
 import { title, link } from './Success.css';
-import { section, button, buttons, smallImg } from '../../../../App.css';
+import { section, button, buttonGrid, smallImg } from '../../../../App.css';
 import { getEtherscanPrefix } from '../../../../utils/getEtherscanPrefix';
 
 type SuccessProps = {
@@ -57,12 +57,12 @@ export function Success({ deployedContractAddress }: SuccessProps) {
 
       <img src={blocks} className={smallImg} alt={en.deployer.success.imgAlt} />
 
-      <div className={buttons}>
-        <button type="button" className={button} onClick={handleGoToMint}>
-          {en.deployer.success.mintNft}
-        </button>
+      <div className={buttonGrid}>
         <button type="button" className={button} onClick={handleGoToHome}>
           {en.common.home}
+        </button>
+        <button type="button" className={button} onClick={handleGoToMint}>
+          {en.deployer.success.mintNft}
         </button>
       </div>
     </section>

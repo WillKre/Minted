@@ -12,6 +12,7 @@ import {
   button,
   section,
   smallImg,
+  buttonGrid,
   loadingWrapper,
 } from '../../../../App.css';
 
@@ -72,7 +73,10 @@ export function Fields({
           alt={en.deployer.success.imgAlt}
         />
 
-        <div>
+        <div className={buttonGrid}>
+          <button type="button" className={button} onClick={handleGoToHome}>
+            {en.common.back}
+          </button>
           <button type="submit" className={button} disabled={isDeploying}>
             {isDeploying ? (
               <div className={loadingWrapper}>
@@ -81,9 +85,6 @@ export function Fields({
             ) : (
               en.deployer.form.submitButtonTitle
             )}
-          </button>
-          <button type="button" className={button} onClick={handleGoToHome}>
-            {en.common.back}
           </button>
         </div>
       </form>

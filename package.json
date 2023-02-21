@@ -17,6 +17,7 @@
     "@rainbow-me/rainbowkit": "^0.11.0",
     "@sentry/react": "^7.28.0",
     "@sentry/tracing": "^7.28.0",
+    "@types/react-modal": "^3.13.1",
     "@vanilla-extract/css": "^1.9.2",
     "alchemy-sdk": "^2.2.3",
     "axios": "^1.2.0",
@@ -31,6 +32,7 @@
     "react-dropzone": "^14.2.3",
     "react-hot-toast": "^2.4.0",
     "react-medium-image-zoom": "^5.1.2",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^6.4.4",
     "truncate-ethereum-address": "^0.3.0",
     "wagmi": "^0.11.0"

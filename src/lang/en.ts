@@ -4,11 +4,14 @@ export const en = {
     back: 'Back',
     home: 'Home',
     image: 'Image',
+    close: 'Close',
     minted: 'Minted',
     preview: 'Preview',
     connect: 'Connect',
     contract: 'Contract',
+    etherscan: 'Etherscan',
     blockchain: 'Blockchain',
+    attributes: 'Attributes',
     transaction: 'Transaction',
     gitHubLogoAlt: 'GitHub octocat',
     metaMaskLogoAlt: 'Metamask fox',
@@ -17,11 +20,12 @@ export const en = {
     dragNDrop: "Drag 'n' drop an image here to upload to IPFS",
   },
   errorPage: {
+    pageError: 'Oops! Something went wrong',
     page404: "We can't seem to find the page you're looking for!",
     buttonText: 'Get me out of here!',
   },
   welcome: {
-    subtitle: 'Welcome! To get started, select one of the following options:',
+    subtitle: 'Welcome! To get started, select an option below:',
     deployButtonTitle: 'Deploy',
     deployButtonSubtitle: 'your own NFT contract',
     mintButtonTitle: 'Mint',
@@ -54,12 +58,23 @@ export const en = {
   },
   minter: {
     form: {
+      attributes: {
+        add: 'Add Attribute',
+        traitType: 'Trait Type',
+        traitTypePlaceholder: "e.g. 'Eye Color'",
+        value: 'Value',
+        valuePlaceholder: "e.g. 'Brown'",
+      },
       contract: {
         label: 'Contract',
+        actionLabelMinted: 'Switch to Minted contract',
+        actionLabelCustom: 'Switch to custom contract',
       },
       link: {
         label: 'Link',
         placeholder: 'e.g. https://gateway.pinata.cloud/ipfs/<hash>',
+        actionLabelImage: 'Switch to image upload',
+        actionLabelInput: 'Switch to URI input',
       },
       name: {
         label: 'Name',

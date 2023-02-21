@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom';
 import { en } from '../../lang';
 import { Image } from './Steps/Image';
 import { Fields } from './Steps/Fields';
+import { TAttribute } from '../../types';
 import { Success } from './Steps/Success';
 import { showToast } from '../../utils/showToast';
 import { capitalize } from '../../utils/capitalize';
@@ -30,6 +31,7 @@ export function Minter() {
   const [jsonPinataUrl, setJsonPinataUrl] = useState<string>('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [attributes, setAttributes] = useState<TAttribute[]>([]);
   const [isContractWriteValid, setIsContractWriteValid] = useState(false);
   const initialContractAddress: string =
     state?.contractAddress || import.meta.env.VITE_CONTRACT_ADDRESS;
@@ -45,7 +47,10 @@ export function Minter() {
     onSuccess: () => setIsContractWriteValid(true),
     onError: (error: WagmiError) => {
       setIsContractWriteValid(false);
-      showToast(capitalize(error?.reason) || en.minter.toast.errorPreparing);
+      showToast(
+        capitalize(error?.reason) || en.minter.toast.errorPreparing,
+        '🚨'
+      );
     },
   });
   const { data, write } = useContractWrite(config);
@@ -58,7 +63,10 @@ export function Minter() {
     },
     onError: (error: WagmiError) => {
       setIsContractWriteValid(false);
-      showToast(capitalize(error?.reason) || en.minter.toast.errorMinting);
+      showToast(
+        capitalize(error?.reason) || en.minter.toast.errorMinting,
+        '🚨'
+      );
     },
   });
 
@@ -89,7 +97,9 @@ export function Minter() {
         setStep={setStep}
         imageUri={imageUri}
         isMinting={isLoading}
+        attributes={attributes}
         description={description}
+        setAttributes={setAttributes}
         handleWrite={() => write?.()}
         setDescription={setDescription}
         setJsonPinataUrl={setJsonPinataUrl}
@@ -105,6 +115,7 @@ export function Minter() {
         setName={setName}
         imageUri={imageUri}
         setImageUri={setImageUri}
+        setAttributes={setAttributes}
         setDescription={setDescription}
       />
     );

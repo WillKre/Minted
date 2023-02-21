@@ -6,9 +6,9 @@ import { en } from '../../../../lang';
 import { MinterStep } from '../../Minter';
 import { showToast } from '../../../../utils/showToast';
 import { Preview } from '../../../../components/Preview';
-import { form, section, button } from '../../../../App.css';
 import { TextInput } from '../../../../components/TextInput';
 import { ImageSelect } from '../../../../components/ImageSelect';
+import { form, section, button, buttonGrid } from '../../../../App.css';
 
 type ImageProps = {
   imageUri: string;
@@ -83,8 +83,8 @@ export function Image({
             label={en.minter.form.contract.label}
             action={{
               label: useCustomAddress
-                ? 'Switch to Minted contract'
-                : 'Switch to custom contract',
+                ? en.minter.form.contract.actionLabelMinted
+                : en.minter.form.contract.actionLabelCustom,
               onClick: switchUseCustomAddress,
             }}
           />
@@ -96,7 +96,7 @@ export function Image({
               label={en.minter.form.link.label}
               placeholder={en.minter.form.link.placeholder}
               action={{
-                label: 'Switch to image upload',
+                label: en.minter.form.link.actionLabelImage,
                 onClick: switchImageType,
               }}
             />
@@ -104,7 +104,7 @@ export function Image({
             <ImageSelect
               onChange={handleSelectImageSuccess}
               action={{
-                label: 'Switch to URI input',
+                label: en.minter.form.link.actionLabelInput,
                 onClick: switchImageType,
               }}
             />
@@ -119,12 +119,12 @@ export function Image({
           )}
         </div>
 
-        <div>
-          <button type="submit" className={button}>
-            {en.minter.next}
-          </button>
+        <div className={buttonGrid}>
           <button type="button" className={button} onClick={handleGoToHome}>
             {en.common.back}
+          </button>
+          <button type="submit" className={button}>
+            {en.minter.next}
           </button>
         </div>
       </form>

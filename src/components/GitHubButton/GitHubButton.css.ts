@@ -12,16 +12,14 @@ export const button = style({
   position: 'absolute',
   background: '#1A1B1F',
   borderRadius: '0.5rem',
-  transition: 'all 0.125s ease',
+  transition: 'all 0.125s ease-in-out',
   ':hover': {
     transform: 'scale(1.025)',
-    background:
-      'linear-gradient(0deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.15))',
+    background: '#333',
   },
   ':focus-visible': {
     transform: 'scale(1.025)',
-    background:
-      'linear-gradient(0deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.15))',
+    background: '#333',
   },
 });
 

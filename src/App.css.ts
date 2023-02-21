@@ -54,9 +54,12 @@ export const form = style({
   justifyContent: 'space-between',
 });
 
-export const buttons = style({
+export const buttonGrid = style({
   width: '100%',
+  display: 'grid',
   paddingTop: '0.5rem',
+  gridColumnGap: '1rem',
+  gridTemplateColumns: '1fr 1fr',
 });
 
 export const button = style({
@@ -64,6 +67,7 @@ export const button = style({
   color: '#FFF',
   border: 'none',
   height: '3rem',
+  fontWeight: 600,
   cursor: 'pointer',
   marginTop: '0.5rem',
   fontSize: '0.875rem',

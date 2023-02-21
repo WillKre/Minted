@@ -5,7 +5,8 @@ import { useNetwork } from 'wagmi';
 import { en } from '../../../../lang';
 import { link, img } from './Success.css';
 import { MinterStep } from '../../Minter';
-import { section, buttons, button } from '../../../../App.css';
+import { TAttribute } from '../../../../types';
+import { section, button, buttonGrid } from '../../../../App.css';
 import { ZoomableImage } from '../../../../components/ZoomableImage';
 import { getEtherscanPrefix } from '../../../../utils/getEtherscanPrefix';
 
@@ -17,6 +18,7 @@ type SuccessProps = {
   setName: Dispatch<SetStateAction<string>>;
   setDescription: Dispatch<SetStateAction<string>>;
   setImageUri: Dispatch<SetStateAction<string>>;
+  setAttributes: Dispatch<SetStateAction<TAttribute[]>>;
   setStep: Dispatch<SetStateAction<MinterStep>>;
 };
 
@@ -27,15 +29,21 @@ export function Success({
   imageUri,
   setImageUri,
   setDescription,
+  setAttributes,
 }: SuccessProps) {
   const { chain } = useNetwork();
   const navigate = useNavigate();
 
-  function handleResetScreen() {
-    setStep('image');
+  function resetForm() {
     setName('');
     setDescription('');
     setImageUri('');
+    setAttributes([]);
+  }
+
+  function handleResetScreen() {
+    setStep('image');
+    resetForm();
   }
 
   function handleGoToHome() {
@@ -56,7 +64,7 @@ export function Success({
               chain?.network
             )}etherscan.io/tx/${data?.hash}`}
           >
-            Etherscan
+            {en.common.etherscan}
           </a>
         </p>
       </div>
@@ -67,12 +75,12 @@ export function Success({
         alt={en.minter.success.imgAlt}
       />
 
-      <div className={buttons}>
-        <button type="button" className={button} onClick={handleResetScreen}>
-          {en.minter.success.buttonText}
-        </button>
+      <div className={buttonGrid}>
         <button type="button" className={button} onClick={handleGoToHome}>
           {en.common.home}
+        </button>
+        <button type="button" className={button} onClick={handleResetScreen}>
+          {en.minter.success.buttonText}
         </button>
       </div>
     </section>

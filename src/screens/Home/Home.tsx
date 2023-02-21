@@ -11,14 +11,6 @@ import blockchainAnimation from '../../assets/blockchain.json';
 export function Home() {
   const navigate = useNavigate();
 
-  function handleGoToDeploy() {
-    navigate('/deploy');
-  }
-
-  function handleGoToMint() {
-    navigate('/mint');
-  }
-
   return (
     <section className={container}>
       <div>
@@ -36,12 +28,12 @@ export function Home() {
         <Button
           title={en.welcome.deployButtonTitle}
           subtitle={en.welcome.deployButtonSubtitle}
-          onClick={handleGoToDeploy}
+          onClick={() => navigate('/deploy')}
         />
         <Button
           title={en.welcome.mintButtonTitle}
           subtitle={en.welcome.mintButtonSubtitle}
-          onClick={handleGoToMint}
+          onClick={() => navigate('/mint')}
         />
       </div>
     </section>
