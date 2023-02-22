@@ -5,7 +5,7 @@ export function useIsSupportedNetwork() {
   const { chain } = useNetwork();
 
   return {
-    isSupportedNetwork: chain
+    isSupportedNetwork: chain?.network
       ? SUPPORTED_NETWORKS.includes(chain.network)
       : false,
   };

@@ -49,6 +49,7 @@ export function Modal({
     <ReactModal
       style={overlay}
       className={modal}
+      ariaHideApp={false}
       isOpen={isModalOpen}
       closeTimeoutMS={200}
     >

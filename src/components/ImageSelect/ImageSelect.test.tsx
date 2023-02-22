@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 
 import { ImageSelect } from './ImageSelect';
 
-it('renders an action button which calls an onClick', async () => {
+it('renders a callable action button', async () => {
   const user = userEvent.setup();
   const onClick = vi.fn();
   const onChange = vi.fn();

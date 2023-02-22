@@ -23,10 +23,7 @@ export async function pinJsonToIpfs(jsonBody: ERC721MetaDataStandard) {
       pinataUrl: `https://gateway.pinata.cloud/ipfs/${data.IpfsHash}`,
     };
   } catch (error) {
-    showToast(
-      error instanceof Error ? error.message : en.minter.toast.errorPinning,
-      '🚨'
-    );
+    showToast(en.minter.toast.errorPinning, '🚨');
 
     return {
       pinataUrl: '',

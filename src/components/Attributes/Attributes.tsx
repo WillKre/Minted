@@ -18,6 +18,17 @@ type AttributeProps = {
   setAttributes: Dispatch<SetStateAction<TAttribute[]>>;
 };
 
+export function filterAttributes(
+  attributes: TAttribute[],
+  trait_type: string,
+  value: string
+) {
+  return attributes.filter(
+    (attribute) =>
+      attribute.trait_type !== trait_type || attribute.value !== value
+  );
+}
+
 export function Attributes({
   attributes,
   setAttributes,
@@ -25,11 +36,7 @@ export function Attributes({
   setIsModalOpen,
 }: AttributeProps) {
   function handleRemoveAttribute({ trait_type, value }: TAttribute) {
-    const newAttributes = attributes.filter(
-      (attribute) =>
-        attribute.trait_type !== trait_type || attribute.value !== value
-    );
-    setAttributes(newAttributes);
+    setAttributes(filterAttributes(attributes, trait_type, value));
   }
 
   return (

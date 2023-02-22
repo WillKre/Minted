@@ -49,6 +49,7 @@
     "@vanilla-extract/vite-plugin": "^3.8.0",
     "@vitejs/plugin-react": "^2.2.0",
     "@vitest/coverage-c8": "^0.25.8",
+    "@vitest/coverage-istanbul": "^0.28.5",
     "@vitest/ui": "^0.25.3",
     "husky": "^8.0.2",
     "typescript": "^4.9.4",

@@ -1,30 +1,47 @@
 import * as wagmi from 'wagmi';
-import { expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
-import { useIsSupportedNetwork } from './useIsSupportedNetwork';
+import {
+  isSupportedNetwork,
+  useIsSupportedNetwork,
+} from './useIsSupportedNetwork';
 
 vi.mock('wagmi');
 
-it('should return true if the useNetwork within returns a supported network', () => {
-  (wagmi.useNetwork as unknown) = () => ({
-    chain: {
-      network: 'homestead',
-    },
+describe('useIsSupportedNetwork()', () => {
+  it('should return true if the useNetwork within returns a supported network', () => {
+    (wagmi.useNetwork as unknown) = () => ({
+      chain: {
+        network: 'homestead',
+      },
+    });
+
+    const { isSupportedNetwork } = useIsSupportedNetwork();
+
+    expect(isSupportedNetwork).toEqual(true);
   });
 
-  const { isSupportedNetwork } = useIsSupportedNetwork();
+  it('should return false if the useNetwork within returns a non-supported network', () => {
+    (wagmi.useNetwork as unknown) = () => ({
+      chain: {
+        network: 'unsupported',
+      },
+    });
 
-  expect(isSupportedNetwork).toEqual(true);
-});
+    const { isSupportedNetwork } = useIsSupportedNetwork();
 
-it('should return false if the useNetwork within returns a non-supported network', () => {
-  (wagmi.useNetwork as unknown) = () => ({
-    chain: {
-      network: 'unsupported',
-    },
+    expect(isSupportedNetwork).toEqual(false);
   });
 
-  const { isSupportedNetwork } = useIsSupportedNetwork();
+  it('should return false if the useNetwork within returns undefined', () => {
+    (wagmi.useNetwork as unknown) = () => ({
+      chain: {
+        network: undefined,
+      },
+    });
 
-  expect(isSupportedNetwork).toEqual(false);
+    const { isSupportedNetwork } = useIsSupportedNetwork();
+
+    expect(isSupportedNetwork).toEqual(false);
+  });
 });
