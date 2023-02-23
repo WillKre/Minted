@@ -4,7 +4,7 @@ Hosted @ https://NftMinted.netlify.app/
 
 Application which allows you to deploy your own NFT contract and/or mint your own NFTs which conform to the [official ERC-721 metadata standards](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md).
 
-You can either mint against your own contract (if you have previously deployed one via *Minted* or elsewhere) by providing the custom contract address, or against the generic already deployed *Minted* contract (`0x55963cC37764dc1932ed7Eb0466432d79d70345e`).
+You can either mint against your own contract (if you have previously deployed one via _Minted_ or elsewhere) by providing the custom contract address, or against the generic already deployed _Minted_ contract (`0x55963cC37764dc1932ed7Eb0466432d79d70345e`).
 
 ## Run Locally
 
@@ -21,4 +21,6 @@ This project uses [Netlify Functions](https://www.netlify.com/products/functions
 
 ## Preview
 
-https://user-images.githubusercontent.com/7396157/207478914-38338dd3-f8d8-4772-a4c1-420d5036e7d1.mov
+Demo of an NFT being minted then showing it on OpenSea:
+
+https://user-images.githubusercontent.com/7396157/220795266-79b3d3bf-2c6a-4df6-8c3d-392e971934ff.mov
